@@ -1,0 +1,31 @@
+.dashboard {
+    
+    padding: 20px;
+}
+
+.profile-button {
+    
+    top: 0;
+    left: 0;
+}
+
+.receipts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.receipt {
+    margin: 10px 0;
+}
+
+.highlight {
+    font-size: 1.5em;
+    color: red; /* Or any other color to highlight the latest receipt */
+}
+
+.add-receipt-button {
+    
+    bottom: 0;
+    right: 0;
+}

@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    receiptIDs: { type: Array, default: [] },
     venmoCreds: { type: String, default: null },
     zelleCreds: { type: String, default: null },
     cashAppCreds: { type: String, default: null },
