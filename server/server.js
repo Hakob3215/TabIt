@@ -51,7 +51,7 @@ app.post('/api/user/login', (req, res) => {
         if (!user || user.password !== password) {
             res.status(201).send(null);
         } else {
-            res.status(200).send(null);
+            res.status(200).send(user.username);
         }
     }).catch((error) => {
         res.status(400).send(null);

@@ -24,6 +24,9 @@ const Login = () => {
             switch(response.status) {
                 case 200:
                     // Success
+                    response.text().then((username) => {
+                    localStorage.setItem('user', username)
+                    });
                     navigate('/dashboard');
                     break;
                 case 201:
