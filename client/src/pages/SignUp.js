@@ -3,6 +3,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/SignUp.css';
 const SignUp = () => {
+    function togglePasswordVisibility(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
 
 const [error, setError] = useState(null);
 
@@ -56,6 +64,8 @@ function handleSubmit(e) {
 
 }
 
+
+
     return (
     <div className='page'>
         <form className="signUpForm" onSubmit={handleSubmit}>
@@ -75,12 +85,13 @@ function handleSubmit(e) {
 
                 <label htmlFor="password"> Password: </label> 
                 <input type="password" name="password" className='field'/>
+                <button type="button" className = "visibility" onClick={togglePasswordVisibility('password')}>👁️</button>
 
                 <label htmlFor="confirmPassword"> Confirm Password: </label> 
                 <input type="password" name="confirmPassword" className='field'/>
             </div>
             {error && <p className='error'>{error}</p>}
-            <button type="submit"> Sign Up </button>
+            <button type="submit" className='signButton'> Sign Up </button>
         </form>
     </div>
 
