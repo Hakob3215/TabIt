@@ -1,19 +1,26 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import SignUp from './pages/signup';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import ScanImage from './pages/ScanImage';
+import ScanText from './pages/ScanText';
+import VerifyItems from './pages/VerifyItems';
+import ScanBarcode from './pages/ScanBarcode';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<h1>Signing Up</h1>}/>
-        <Route path="/login" element={<h1>Logging In</h1>}/>
-        <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
-        <Route path="/scan-image" element={<h1>Scan Image</h1>}/>
-        <Route path="/scan-text" element={<h1>Scan Text</h1>}/>
-        <Route path="/verify-items" element={<h1>Scan Voice</h1>}/>
-        <Route path="/scan-barcode" element={<h1>Scan Barcode</h1>}/>
+        <Route path="/signup" element={<SignUp />}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/scan-image" element={<ScanImage/>} />
+        <Route path="/scan-text" element={<ScanText/>} />
+        <Route path="/verify-items" element={<VerifyItems/>} />
+        <Route path="/scan-barcode" element={<ScanBarcode/>} />
       </Routes>
     </Router>
   );
