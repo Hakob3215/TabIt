@@ -50,6 +50,7 @@
 .Navbar h1 {
     padding-left: 30px;
     font-size: 40px;
+    line-height: 30px;
 }
 body {
     padding-top: 60px;
