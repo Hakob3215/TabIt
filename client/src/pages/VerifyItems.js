@@ -1,6 +1,6 @@
 import React from 'react';
 
-const VerifyText = () => {
+const VerifyItems = () => {
     return (
         <div>
         <h1>Verify Items</h1>
