@@ -1,5 +1,8 @@
 .Navbar {
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    
     top: 0;
     width: 100%;
     height: 60px;
@@ -7,6 +10,46 @@
     z-index: 1000;
 }
 
+.Navbar nav {
+    align-self: flex-end;
+}
+
+.Navbar ul {
+    display: flex;
+    list-style-type: none;
+    margin: 3px;
+}
+
+.Navbar ul li {
+    margin: 0 7px;
+    color: #000;
+}
+
+.Navbar ul li a {
+    text-decoration: none;
+    color: #000;
+    position: relative;
+}
+
+.Navbar ul li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.Navbar ul li a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    transition: transform 0.3s ease;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+}
+
 body {
     padding-top: 60px;
 }
+
+
