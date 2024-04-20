@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import ScanImage from './pages/ScanImage';
 import VerifyItems from './pages/VerifyItems';
 import GuestNavbar from './components/GuestNavbar';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/dashboard" element={<><Dashboard /></>} />
         <Route path="/scan-image" element={<><ScanImage /></>} />
         <Route path="/verify-items" element={<><VerifyItems /></>} />
+        <Route path="/profile-page" element={<><ProfilePage /></>} />
       </Routes>
     </Router>
   );
