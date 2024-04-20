@@ -45,6 +45,18 @@ app.post('/api/user/signup', (req, res) => {
     
 });
 
+app.post('/api/user/login', (req, res) => {
+    const { userOrEmail, password } = req.body;
+    UserModel.findOne({ $or: [{ username: userOrEmail }, { email: userOrEmail }] }).then((user) => {
+        if (!user || user.password !== password) {
+            res.status(201).send(null);
+        } else {
+            res.status(200).send(null);
+        }
+    }).catch((error) => {
+        res.status(400).send(null);
+    });
+});
 
 
 
