@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import profileIcon from '../components/profileIcon.png';
 import './styles/Dashboard.css'; // Import your CSS file
 
@@ -14,8 +15,16 @@ const Receipt = ({ receipt }) => {
 }
 
 const Dashboard = () => {
-
+    const navigate = useNavigate();
     const [receipts, setReceipts] = useState([]);
+
+    useEffect(() => {
+    const user = localStorage.getItem('user');
+        if (!user) {
+            // if not signed in, redirect to sign in page
+            navigate('/login');
+        }
+    });
 
     useEffect(() => {
         setReceipts([
@@ -32,15 +41,19 @@ const Dashboard = () => {
         ]);
     },[setReceipts]);
 
+    function handleNavigate(dest) {
+        navigate(dest);
+    }
+
     return (
         <div className="dashboard">
-            <button className="profile-button">
+            <button className="profile-button" onClick={() => handleNavigate('/profile-page')}>
                 <img src={profileIcon} alt="Profile Icon" />
             </button>
             <div className="receipts">
                 {receipts.map((receipt, index) => {return <Receipt key={index} receipt={receipt} />})}
             </div>
-            <button className="add-receipt-button">+</button>
+            <button className="add-receipt-button" onClick={() => handleNavigate('/scan-image')}>+</button>
         </div>
     );
 };
