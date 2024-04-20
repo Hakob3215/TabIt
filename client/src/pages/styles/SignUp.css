@@ -1,18 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet');
+@import url('https://fonts.googleapis.com/css2?family=Mukta');
 
+
+.page {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    
+}
 .signUpForm
 {
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 100px;
     display: flex;
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
     flex-direction: column;
+    width: 100%;
+    border: 2px solid white;
+    border-radius: 25px;
 }
 .title
 {
-    color:#fcfcfc;
+    color:rgb(18, 46, 46);
+    padding:0;
+    margin:0;
+    font-size: 50px;
+}
+
+.inputs {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;    
+    padding: 10px 20px;
+    margin: 1px 50px;
+    font-size: 16px;
+    font-weight: bold;
+    /* color:#ffffff */
+    color: rgba(255, 255, 255);
+   
+}
+
+.signUpForm input {
+    padding: 10px 20px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border-color: rgb(42, 40, 40, 0.8);
+ 
+}
+button {
+    padding: 10px;
+    margin: 20px;
+    width: 50%;
+    background-color:rgb(18, 46, 46);
+    color:rgba(255, 255, 255);
 }
 body 
 {
-    font-family: 'Noto+Sans';
-    background-color: #66809a;
+    font-family: 'Mukta';
+    background-color:lightsteelblue;
 }
