@@ -1,3 +1,8 @@
 Venmo DeepLink Syntax: https://venmo.com/<USER_NAME_1>?txn=<charge|pay>&note=<NOTE>&amount=<AMOUNT>
 
 Background temp: #66809a
+zelle: zelle://
+    Might want to use their bank for zelle if they do not have the app so ask maybe
+paypal: paypal://
+cash_app: squarecash://
+
