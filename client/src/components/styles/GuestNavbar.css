@@ -47,7 +47,10 @@
     left: 50%;
     transform: translateX(-50%) scaleX(0);
 }
-
+.Navbar h1 {
+    padding-left: 30px;
+    font-size: 40px;
+}
 body {
     padding-top: 60px;
 }
