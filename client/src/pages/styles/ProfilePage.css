@@ -1,24 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Noto Sans', sans-serif;
-    background-color: #e2e8f0;
-    color: #1a202c;
-}
 
-html,
-body {
-    height: 100%
-}
 
-body {
-    display: grid;
-    place-items: center;
-    background: #0b0a0b
-}
+
 
 /* ProfilePage.css */
 
