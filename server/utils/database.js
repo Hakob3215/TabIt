@@ -14,15 +14,11 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    venmoCreds: {
-        username: String,
-    },
-    zelleCreds: {
-        username: String,
-    },
-    cashAppCreds: {
-        username: String,
-    }
+    venmoCreds: { type: String, default: null },
+    zelleCreds: { type: String, default: null },
+    cashAppCreds: { type: String, default: null },
+    paypalCreds: { type: String, default: null },
+    applePayCreds: { type: String, default: null },
 });
 
 
