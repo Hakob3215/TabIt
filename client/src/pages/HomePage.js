@@ -4,7 +4,7 @@ import './styles/HomePage.css';
 const HomePage = () => {
     return (
         <div className='homePage'>
-        <h1>Home Page</h1>
+        <h1>Welcome to Tab It!</h1>
         </div>
     );
 };
