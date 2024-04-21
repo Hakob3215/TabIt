@@ -26,8 +26,8 @@ const Login = () => {
                     // Success
                     response.text().then((username) => {
                     localStorage.setItem('user', username)
-                    });
                     navigate('/dashboard');
+                    });
                     break;
                 case 201:
                     // Username or email not found
