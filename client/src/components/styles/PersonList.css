@@ -1,7 +1,7 @@
 .person-list {
     display:flexbox;
     grid-template-columns: 1fr 1fr auto;
-    align-items: center;
+    align-items: left;
     width: 80%;
     /* can max-width: 414px; */
     position: relative;
@@ -25,7 +25,7 @@
 .person-name, .person-total, .total{
     font-size: 18px;
     /* margin-top: 55px; */
-    max-width: 23%;  
+    max-width: 25%;  
     overflow: hidden;  
     white-space: nowrap; 
     overflow: auto;  
@@ -34,6 +34,8 @@
    
     flex: 1 0 auto; /* This allows the elements to grow and shrink as needed */
     text-align: left;
+    align-self: left;
+    align-items: left;
     padding: 0 20px;
  
 }
@@ -72,7 +74,7 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.person-list::-webkit-scrollbar {
+.person-name::-webkit-scrollbar, .person-total::-webkit-scrollbar {
     width: 0; /* Set the width of the scrollbar to zero */
     background: transparent; /* Set the background of the scrollbar to transparent */
 }
