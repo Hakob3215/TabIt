@@ -1,0 +1,69 @@
+.scanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
+#pickImage {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+/* Receipt Info */
+
+.receiptItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.receiptItemsList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+}
+
+.removeButton {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.removeButton:hover {
+    background-color: #ff6666;
+}
+
+.addButton {
+    background-color: #00aa00;
+    color: #fff;
+    margin-top: 10px;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    align-self: center;
+}
