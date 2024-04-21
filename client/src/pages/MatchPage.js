@@ -256,8 +256,8 @@ const MatchPage = () => {
                     // Success
                     response.text().then((receiptID) => {
                         localStorage.setItem('receiptID', receiptID);
+                        navigate('/final')
                     });
-                    navigate('/final')
                     break;
                 default:
                     console.log('An error occurred');
