@@ -1,0 +1,245 @@
+.user-profile {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Adjust the width as needed */
+    max-width: 480px;
+    overflow-x: scroll;
+    white-space: nowrap; /* Prevent line breaks for the images */
+    position: relative; /* Positioning context for the floating button */
+    margin: auto;
+    padding-top: 10px;
+}
+.user-profile::-webkit-scrollbar {
+    width: 0; /* Set the width of the scrollbar to zero */
+    background: transparent; /* Set the background of the scrollbar to transparent */
+}
+
+.add-user-container {
+    display: flex; 
+    /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: start; /* Align items to the start */
+    gap: 10px; /* Add some space between items */
+
+}
+
+.profile-scroll-container {
+    display: inline-block; /* Display images in a row */
+    margin-left: 10px; /* Add space for the floating button */
+    position: relative; /* Position for the button */
+}
+
+.profile-image {
+    width: 60px; /* Adjust the width of each profile picture as needed */
+    height: auto;
+    margin-right: 10px; /* Add some space between profile pictures */
+    border-radius: 50%; /* Make profile pictures circular */
+    border: 5px solid transparent;
+}
+
+.profile-image:hover {
+    background-color: transparent; /* Remove background color on hover */
+    border-color: #4056a1;
+}
+
+.add-user-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #526dd1;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+    border: none;
+    position: relative; /* Position the button absolutely */
+    left: 0; /* Align to the left of the container */
+    bottom: 0;
+}
+
+.add-user-button:hover {
+    background-color: #4056a1; /* Change background color on hover */
+}
+
+.data-table {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    overflow-x: scroll;
+    white-space: nowrap;
+    position: relative;
+    margin: auto;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+.data-table::-webkit-scrollbar{
+    width: 0; /* Set the width of the scrollbar to zero */
+    background: transparent; /* Set the background of the scrollbar to transparent */
+}
+
+.data-table table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 480px;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #788be9;
+    color: white;
+    padding: 12px 15px;
+}
+
+.data-table td {
+    padding: 12px 15px;
+}
+
+.data-table tbody tr {
+    border-bottom: thin solid #090909;
+}
+
+.data-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.data-table tbody tr:nth-child(odd) {
+    background-color: #e9e2e2; /* This is for odd rows */
+}
+
+.data-table tbody tr:last-of-type {
+    border-bottom: 1px solid #5666cf;
+}
+
+.data-table tbody tr.active-row {
+    font-weight: bold;
+    color: #accdc6;
+}
+.data-table tbody tr:hover {
+    background-color: #cfcfcf; /* Change the background color on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+
+
+.add-user-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9; /* Lighter background for a minimalist look */
+    padding: 20px;
+    border: 1px solid #e0e0e0; /* Lighter border color */
+    border-radius: 5px;
+    width: 100%;
+    max-width: 440px;
+    height: 600px;
+    overflow-y: scroll;
+    overflow-x: auto;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Add a subtle shadow for depth */
+    font-family: Arial, sans-serif; /* Use a sans-serif font for a modern look */
+}
+.top-overall {
+    display: flex;
+    justify-content: center; /* Aligns items horizontally in the center */
+    align-items: center; /* Aligns items vertically in the center */
+    width: 100%;
+    position: relative; /* Establishes a new positioning context for the close button */
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+.close-button {
+    position: absolute; /* Positions the button relative to the nearest positioned ancestor */
+    left: 10px; /* Positions the button 10px from the left edge of the .top-overall div */
+    background-color: transparent;
+    border-radius: 50%; /* Make profile pictures circular */
+    border: 3px solid transparent;
+    font-size: 20px;
+    cursor: pointer;
+    top: 60%; /* Positions the button in the middle vertically */
+    transform: translateY(-50%); /* Offsets the button by half its height to center it vertically */
+}
+.close-button:hover{
+    background-color: transparent; /* Remove background color on hover */
+    border-color: #4056a1;
+}
+.top-overall h3 {
+    font-size: 1.2em; /* Adjust the size of the headers */
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Selected users container */
+.selected-users {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns items to the left */
+    width: 100%;
+    height: 100px; /* Adjust as needed */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Title */
+.selected-users h3 {
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+/* User list */
+.selected-users ul {
+    list-style-type: none; /* Removes bullet points */
+    padding: 0;
+    width: 100%;
+}
+
+/* User list item */
+.selected-users li {
+    display: flex;
+    justify-content: space-between; /* Spaces the user name and remove button apart */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+/* Remove button */
+.selected-users button {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Adds a smooth transition effect */
+}
+
+/* Remove button hover effect */
+.selected-users button:hover {
+    background-color: #e7e9eb;
+}
+
+
+.add-user-window input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc; /* Lighter border color */
+    border-radius: 5px; /* Rounded corners for a softer look */
+}
+
+.submit-button {
+    background-color: #526dd1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.add-user-window .submit-button:hover {
+    background-color: #4056a1; /* Change background color on hover */
+}
