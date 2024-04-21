@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/SignUp.css';
 const SignUp = () => {
 
 const [error, setError] = useState(null);
 
-const handleSubmit = async (e) => {
+const navigate = useNavigate();
+function handleSubmit(e) {
     e.preventDefault();
     const firstName = e.target.firstName.value;
     const lastName = e.target.lastName.value;
@@ -17,7 +19,40 @@ const handleSubmit = async (e) => {
         setError('Passwords do not match');
         return;
     }
-
+    if (password.length < 8) {
+        setError('Password must be at least 8 characters');
+        return;
+    }
+    fetch(process.env.REACT_APP_SERVER_URL + '/api/user/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            username,
+            password,
+        }),
+    }).then((response) => {
+        // response will be status code
+        // 200 -> success, 201 -> username taken, 202 -> email taken
+        switch(response.status) {
+            case 200:
+                setError(null);
+                navigate('/login');
+                break;
+            case 201:             
+            case 202:
+                setError('Username or Email is taken');
+                break;
+            default:
+                setError('An error occurred');
+        }
+        
+    }).catch((error) => {
+    });
 
 }
 
@@ -44,6 +79,7 @@ const handleSubmit = async (e) => {
                 <label htmlFor="confirmPassword"> Confirm Password: </label> 
                 <input type="password" name="confirmPassword" className='field'/>
             </div>
+            {error && <p className='error'>{error}</p>}
             <button type="submit"> Sign Up </button>
         </form>
     </div>
