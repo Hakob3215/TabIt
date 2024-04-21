@@ -15,7 +15,7 @@ const Receipt = ({ receipt }) => {
     return (
         <div className="receipt">
             <p>{receipt.title}</p>
-            <p>{receiptSum}</p>
+            <p>{receiptSum.toFixed(2)}</p>
         </div>
     );
 }
