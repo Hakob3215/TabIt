@@ -22,6 +22,21 @@ const userSchema = new mongoose.Schema({
     applePayCreds: { type: String, default: null },
 });
 
+const receiptSchema = new mongoose.Schema({
+    receiptID: String,
+    items: { type: [{
+        itemName: String,
+        itemPrice: Number,
+        usersPaying: [String]
+    }], default: [] },
+    users: {
+        type: [{
+            username: String,
+            amountOwed: Number
+        }]
+    }
+});
+
 
 
 // Create a model for users
