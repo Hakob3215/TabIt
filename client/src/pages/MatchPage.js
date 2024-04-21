@@ -7,16 +7,16 @@ const MatchPage = () => {
     const [userImages, setUserImages] = useState([
         "https://bootdey.com/img/Content/avatar/avatar6.png",
         "profile2.jpg",
-        "profile3.jpg",  
-        "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "https://bootdey.com/img/Content/avatar/avatar5.png", 
+        "https://bootdey.com/img/Content/avatar/avatar7.png",
         "profile2.jpg",
         "profile3.jpg",   
         // Add more profile picture URLs here
     ]);
 
     const [data, setData] = useState([  // Replace with your actual data fetching logic
-        { _id: 1, column1: "Value 1", column2: "", column3: "Value 3", column4: "Value 4" },
-        { _id: 2, column1: "Another Value", column2: "", column3: "Sample Content", column4: "Sample 2 Content" },
+        { _id: 1, column1: "Value 1", column2: "", column3: "32.4", column4: "Value 4" },
+        { _id: 2, column1: "Another Value", column2: "", column3: "43.1", column4: "Sample 2 Content" },
         // Add more data objects here
     ]);
 
@@ -47,6 +47,19 @@ const MatchPage = () => {
             }
     
             newData[index].column2 = updatedColumn2Data; // Assign the updated array to column2
+
+
+            const column3Value = parseFloat(newData[index].column3);
+            if (!isNaN(column3Value)) {
+                if (updatedColumn2Data.length > 0) {
+                    newData[index].column4 = (column3Value / updatedColumn2Data.length).toFixed(2);
+                } else {
+                    newData[index].column4 = column3Value.toFixed(2); // Display column 3 value if division by 0
+                }
+            } else {
+                newData[index].column4 = "Invalid float"; // Replace with your preferred default value
+            }
+
             setData(newData);
         }
     };
@@ -80,7 +93,9 @@ const MatchPage = () => {
                     ))}
                 </div>
                 {showAddUserWindow && <AddUserWindow onSubmit={handleAddUserSubmit} />}
+                {showAddUserWindow && <AddUserWindow onSubmit={handleAddUserSubmit} onClose={() => setShowAddUserWindow(false)} />}
             </div>
+            {showAddUserWindow ? null : (
             <div className="data-table">
                 <table>
                     <thead>
@@ -103,43 +118,118 @@ const MatchPage = () => {
                                                     key={index}
                                                     src={url} 
                                                     alt={`Profile ${index}`} 
-                                                    style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '5px' }} 
+                                                    style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '5px' }}
+                                                   // onClick={() => handleClick(index)} 
                                                 />
                                             ))}
                                         </div>
                                     )}
                                 </td>
-                                <td>{item.column3}</td>
-                                <td>{item.column4}</td>
+                                <td>${!isNaN(parseFloat(item.column3)) ? parseFloat(item.column3).toFixed(2) : "Invalid float"}</td>
+                                <td>${!isNaN(parseFloat(item.column4)) ? parseFloat(item.column4).toFixed(2) : parseFloat(item.column3).toFixed(2)}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            )};
         </>
     );
 };
 
-const AddUserWindow = ({ onSubmit }) => {
+const AddUserWindow = ({ onSubmit, onClose }) => {
     const [newUserImage, setNewUserImage] = useState("");
+    const [selectedUsers, setSelectedUsers] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+    const [allUsers] = useState([
+        'Alice',
+        'Bob',
+        'Charlie',
+        'David',
+        'Eve',
+        'Frank',
+        'Grace',
+        'Heidi',
+        'Ivan',
+        'Judy',
+    ]);
+
+    const [userFriends] = useState([
+        'Charlie',
+        'David',
+        'Eve',
+    ]);
+
 
     const handleInputChange = (event) => {
         setNewUserImage(event.target.value);
     };
 
+    const handleSearchInputChange = (event) => {
+        const value = event.target.value;
+        setSearchInput(value);
+        const results = allUsers.filter(user => user.includes(value));
+        setSearchResults(results);
+    };
+
+    const handleAddUser = (username) => {
+        setSelectedUsers(prevUsers => [...prevUsers, username]);
+    };
+
+    const handleRemoveUser = (username) => {
+        setSelectedUsers(prevUsers => prevUsers.filter(user => user !== username));
+    };
+
     const handleSubmit = () => {
-        onSubmit(newUserImage);
+        onSubmit(selectedUsers);
     };
 
     return (
         <div className="add-user-window">
-            <input
-                type="text"
-                placeholder="Enter user profile image URL"
-                value={newUserImage}
-                onChange={handleInputChange}
-            />
-            <button onClick={handleSubmit}>Add User</button>
+            <div className="top-overall">
+                <button className="close-button" onClick={onClose}>X</button>
+                <h3>Add Users</h3>
+            </div>
+                
+            <div className="selected-users">
+                <h3>Selected Users:</h3>
+                <ul>
+                    {selectedUsers.map((user, index) => (
+                        <li key={index}>
+                            {user}
+                            <button onClick={() => handleRemoveUser(user)}>Remove</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="search-users">
+                <input
+                    type="text"
+                    placeholder="Search users..."
+                    value={searchInput}
+                    onChange={handleSearchInputChange}
+                />
+                <ul>
+                    {searchResults.map((user, index) => (
+                        <li key={index}>
+                            {user}
+                            <button onClick={() => handleAddUser(user)}>Add</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="user-friends">
+                <h3>User's Friends:</h3>
+                <ul>
+                    {userFriends.map((friend, index) => (
+                        <li key={index}>{friend}</li>
+                    ))}
+                </ul>
+            </div>
+            <div className="submit-class">
+                <button className="submit-button" onClick={handleSubmit}>Add Selected Users</button>
+            </div>
         </div>
     );
 };
