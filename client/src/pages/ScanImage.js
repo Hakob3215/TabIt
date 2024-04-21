@@ -30,12 +30,13 @@ const ScanImage = () => {
             };
     
             try {
-                const prompt = 'The task is to process receipt information with the following specifications: \n' +
+                const prompt = 'Process this image of a receipt with the following: \n' +
                 '1. Extract only the product names and their costs, along with tax and tip. \n' +
                 '2. Each item should be formatted as: ITEM//COST. \n' +
                 '3. Use "&" to separate each item. \n' +
-                '4. Exclude any total amounts, non-cost related information, and items without a cost. \n' +
-                '5. Do not include change. \n';
+                '4. Exclude any non-cost related information, and items without a cost. \n' +
+                '5. Do not include change. \n' +
+                '6. Do not include the totals.';
  
                 const promptResult = await model.generateContent([prompt, image]);
                 const resultResponse = await promptResult.response;
@@ -46,6 +47,8 @@ const ScanImage = () => {
                 // filter out all items without a cost/float value
                 const filteredReceiptInfo = receiptInfo.filter(item => item[1] && !isNaN(parseFloat(item[1])));
                 setReceiptInfo(filteredReceiptInfo);
+                setResponse('');
+                setRequestMade(false);
             } catch (error) {
                 console.error(error);
             }
@@ -53,6 +56,7 @@ const ScanImage = () => {
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
+        e.target.value = null;
     }
 
     function handleItemChange(index, e) {
@@ -76,7 +80,11 @@ const ScanImage = () => {
             total += parseFloat(item[1]);
         });
         // round to 2 decimal places
+        if (isNaN(total)) return "Please Enter All Costs";
         return total.toFixed(2);
+    }
+    function addItem() {
+        setReceiptInfo([...receiptInfo, ['', '']]);
     }
         
 
@@ -85,7 +93,7 @@ const ScanImage = () => {
         <h1>Scan Image</h1>
         <input id="pickImage" type="file" accept="image/*" capture="camera" onChange={handleImage}/>
         <label htmlFor="pickImage" className='custom-file-upload'>Pick Image</label>
-        {requestMade && <p>{response ? response : "Loading..."}</p>}
+        {requestMade && <p>{response ? '' : "Loading..."}</p>}
 
         {receiptInfo.length > 0 &&
         <div className='receiptItems'>
@@ -94,18 +102,21 @@ const ScanImage = () => {
                 {receiptInfo.map((item, index) => {
                     return (
                         <div key={index} className='receiptItem'>
-                        <input type="text" value={item[0]} className='item' onChange={(e) => handleItemChange(index, e)} />
-                        <input type="text" value={item[1]} className='cost' onChange={(e) => handleCostChange(index, e)} />
-                        <button onClick={() => removeItem(index)}>Remove</button>
+                        <input type="text" value={item[0]} className='item' onChange={(e) => handleItemChange(index, e)} placeholder='Enter item name' />
+                        <input type="text" value={item[1]} className='cost' onChange={(e) => handleCostChange(index, e)} placeholder='Enter item cost'/>
+                        <button className='removeButton' onClick={() => removeItem(index)}>X</button>
                         </div>
                     );
                 })}
-            </div>
-            <div className='totalCost'>
-                <h3>Total Cost: ${getTotalCost()}</h3>
+            <button className='addButton' onClick={addItem}>+</button>
             </div>
         </div>}
-
+        {
+        receiptInfo.length > 0 &&
+        <div className='totalCost'>
+                { !isNaN(getTotalCost()) ? <h3>Total Cost: ${getTotalCost()}</h3> : <h3>{getTotalCost()}</h3> }
+        </div>
+        }
         </div>
     );
 };

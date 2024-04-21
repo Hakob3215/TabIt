@@ -56,7 +56,7 @@ h3 {
     color: rgba(8,7,16,0.2);
 }
 
-button {
+.loginButton {
 margin-top: 50px;
 width: 95%;
 background-color: #ffffff;
@@ -70,5 +70,4 @@ cursor: pointer;
 
 body {
 background-color:blanchedalmond;
-
 }

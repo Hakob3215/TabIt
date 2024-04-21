@@ -32,3 +32,38 @@
     display: flex;
     justify-content: space-between;
 }
+
+.receiptItemsList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+}
+
+.removeButton {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.removeButton:hover {
+    background-color: #ff6666;
+}
+
+.addButton {
+    background-color: #00aa00;
+    color: #fff;
+    margin-top: 10px;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    align-self: center;
+}
