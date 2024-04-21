@@ -165,7 +165,7 @@ const ScanImage = () => {
                     case 200:
                         // Success
                         localStorage.removeItem('newReceipt');
-                        navigate('/dashboard');
+                        navigate('/match-page');
                         break;
                     default:
                         console.log('An error occurred');
@@ -186,7 +186,7 @@ const ScanImage = () => {
                 switch(response.status) {
                     case 200:
                         // Success
-                        navigate('/dashboard');
+                        navigate('/match-page');
                         break;
                     default:
                         console.log('An error occurred');
@@ -203,6 +203,10 @@ const ScanImage = () => {
         <label htmlFor="pickImage" className='custom-file-upload'>Pick Image</label>
         {requestMade && <p>{response ? '' : "Loading..."}</p>}
 
+       {receiptInfo.length > 0 && <div className='receiptNaming'>
+            Name your Receipt:    
+            <input placeHolder={'Your Name'} className='nameInput' onChange={(e) => setTitle(e.target.value)}/>
+        </div>}
         {receiptInfo.length > 0 &&
         <div className='receiptItems'>
             <h2>Receipt Information</h2>
@@ -226,7 +230,7 @@ const ScanImage = () => {
                 <h3>Total Cost: ${getTotalCost()}</h3>
                 <input type="text" className="tipInput" placeholder="Leave Blank for No Tax" onChange={(e) => handleTaxChange(e)}/>
                 <input type="text" className="taxInput" placeholder="Leave Blank for No Tip" onChange={(e) => handleTipChange(e)}/>
-                <input type="text" className="titleInput" placeholder="Enter Receipt Title" onChange={(e) => setTitle(e.target.value)}/>
+                {/* <input type="text" className="titleInput" placeholder="Enter Receipt Title" onChange={(e) => setTitle(e.target.value)}/> */}
                 {title && <button className="submitReceipt" onClick={handleReceiptSubmission}>Process Receipt</button>}
                 </> : <h3>{getTotalCost()}</h3> }
         </div>

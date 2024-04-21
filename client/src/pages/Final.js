@@ -12,6 +12,7 @@ const user_list = [
     },
     {
         username: "Ryan",
+        venmoCreds: 'ryan-kung-10',
         amountOwed: 80.01
     },
     {
@@ -20,6 +21,7 @@ const user_list = [
     },
     {
         username:"Preeti",
+        venmoCreds:'Preeti-Karthikeyan',
         amountOwed: 20.01
     },
     {
@@ -49,7 +51,10 @@ const user_list = [
                     <Link to="/match-page">
                         <button className='back-button'>Back</button>
                     </Link>
-                    <button className='done-button'>Done</button>
+                    <Link to= "/dashboard">
+                        <button className='done-button'>Done</button>
+                    </Link>
+                    
                 </div>
             </div>
     </div>
