@@ -3,17 +3,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/SignUp.css';
 const SignUp = () => {
-    function togglePasswordVisibility(id) {
-        var x = document.getElementById(id);
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
-
 const [error, setError] = useState(null);
+const [passVisible, setPassVisible] = useState(false);
+const [confirmVisible, setConfirmVisible] = useState(false);
 
+function togglePasswordVisibility() {
+    setPassVisible(!passVisible);
+}
+function toggleConfirmVisibility() {
+    setConfirmVisible(!confirmVisible);
+}
 const navigate = useNavigate();
 function handleSubmit(e) {
     e.preventDefault();
@@ -84,11 +83,13 @@ function handleSubmit(e) {
                 <input type="text" name="username" className='field'/>
 
                 <label htmlFor="password"> Password: </label> 
-                <input type="password" name="password" className='field'/>
-                <button type="button" className = "visibility" onClick={togglePasswordVisibility('password')}>👁️</button>
+                <input type={passVisible ? "text":"password"} name="password" className='field'/>
+                <button type="button" className = "visibility" onClick={togglePasswordVisibility}>👁️</button>
 
                 <label htmlFor="confirmPassword"> Confirm Password: </label> 
-                <input type="password" name="confirmPassword" className='field'/>
+                <input type={confirmVisible ? "text":"password"} name="password" className='field'/>
+                <button type="button" className = "conVisibility" onClick={toggleConfirmVisibility}>👁️</button>
+
             </div>
             {error && <p className='error'>{error}</p>}
             <button type="submit" className='signButton'> Sign Up </button>

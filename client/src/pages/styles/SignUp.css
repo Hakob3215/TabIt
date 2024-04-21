@@ -61,9 +61,24 @@
     background: none;
     border: none;
     position: absolute;
-    top: 50%;
+    top: 61%;
     right: 10px;
+    width: 8px;
     transform: translateY(-50%);
+    transform: translateX(-150%);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.conVisibility {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 71%;
+    right: 10px;
+    width: 8px;
+    transform: translateY(-50%);
+    transform: translateX(-150%);
     font-size: 16px;
     cursor: pointer;
 }
