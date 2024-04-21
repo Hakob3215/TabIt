@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
 const receiptSchema = new mongoose.Schema({
     title: String,
     owner: String,
+    pfp: { type: String, default: null },
     items: { type: [{
         itemName: String,
         itemPrice: Number,

@@ -59,6 +59,16 @@ app.post('/api/user/login', (req, res) => {
     });
 });
 
+app.post('/api/user/profile', (req, res) => {
+    const { username } = req.body;
+    UserModel.findOne({ username: username }).then((user) => {
+        res.status(200).send(user);
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
 app.post('/api/receipts/new-receipt', (req, res) => {
     const { receipt } = req.body;
     const newReceipt = new ReceiptModel(receipt);
@@ -95,6 +105,10 @@ app.post('/api/receipts/update-receipt', (req, res) => {
 app.post('/api/receipts/get-receipts', (req, res) => {
     const { username } = req.body;
     UserModel.findOne({ username: username }).then((user) => {
+        if (!user) {
+            res.status(400).send(null);
+            return;
+        }
         const receiptIDs = user.receiptIDs;
         ReceiptModel.find({ _id: { $in: receiptIDs } }).then((receipts) => {
             res.status(200).send({ receipts });
