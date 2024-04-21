@@ -1,7 +1,7 @@
 .fPage .title {
+    font-family: Georgia, 'Times New Roman', Times, serif;
     margin-bottom: -20px;
     color: #fcfcf7;
-    font-family: Serif;
     margin-left: 120px;
     padding-top: 20px;
 }
@@ -27,6 +27,5 @@
 }
 
 .fPage {
-    font-family: 'Times New Roman';
     background: radial-gradient(circle, #0d0d0d, #5a5959);
 }

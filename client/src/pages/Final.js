@@ -46,7 +46,7 @@ const user_list = [
             </div>
             <div>
                 <div className='buttons'>
-                    <Link to="/verify-items">
+                    <Link to="/match-page">
                         <button className='back-button'>Back</button>
                     </Link>
                     <button className='done-button'>Done</button>

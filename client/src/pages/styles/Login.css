@@ -27,16 +27,15 @@
     padding: 50px 35px;
     
 }
-.title {
-    font-size: 30px;
-    padding-bottom: 35px;
-    padding-top: 0;
-    margin-top: 0;
+.loginHeader{
+    font-size: 36px;
+    padding-bottom: 28px;
+
 }
 
 .user{
     padding-bottom: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 38px;
 }
 
 .fields {
@@ -77,5 +76,10 @@ cursor: pointer;
 }
 
 body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
     background: radial-gradient(circle, #efe9e9, #ded9d9);
+}
+
+button {
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }

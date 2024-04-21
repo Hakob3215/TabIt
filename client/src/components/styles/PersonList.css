@@ -23,7 +23,7 @@
 }
 
 .person-name, .person-total, .total{
-    font-size: 20px;
+    font-size: 18px;
     /* margin-top: 55px; */
     max-width: 20%;  
     overflow: hidden;  
@@ -60,7 +60,7 @@
     background-color: #ffffff;
     color: #080710;
     padding: 15px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     border-radius: 5px;
     margin-right: 10px;
@@ -68,6 +68,7 @@
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); 
     height: 80%;
     transform: translateY(-25px);
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .total {
@@ -81,6 +82,3 @@
     max-width: 100%;
 }
  
-body {
-    font-family: Helvetica;
-}
