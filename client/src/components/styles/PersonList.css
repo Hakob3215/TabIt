@@ -1,7 +1,34 @@
 .person-list {
-    display:inline-flex;
+    display:flexbox;
+    grid-template-columns: 1fr 1fr auto;
+    align-items: center;
+    width: 100%;
+    /* can max-width: 414px; */
+    position: relative;
+    margin: auto;
 }
+
+.person-details {
+    display: flex;
+    align-items: center; /* Optional: if you want to align items vertically in the center */
+    justify-content: space-between;
+    width: 100%
+}
+.person-name, .person-total {
+    flex: 1 0 auto; /* This allows the elements to grow and shrink as needed */
+    text-align: left;
+    padding: 0 50px;
+    padding-top:40px;
+}
+  
+  .person {
+    border-bottom: 1px solid #000; /* Optional: if you want a line after each person */
+    padding: 10px 0; /* Optional: if you want some space around each person */
+  }
+  
+  
 
 .request-button {
     width: 100px;
+    text-align: right;
 }
