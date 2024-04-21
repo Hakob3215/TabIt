@@ -2,6 +2,7 @@ import React from 'react';
 import './styles/PersonList.css';
 
 const PersonList = ({users}) => {
+  const totalAmountOwed = users.reduce((total, user) => total + user.amountOwed, 0);
     return (
       <div className="person-list">
         {users.map((user, index) => (
@@ -12,7 +13,11 @@ const PersonList = ({users}) => {
               <button className="request-button">Request</button>
             </div>
           </div>
+        
         ))}
+        <div className='total'>
+            <label>Total: ${totalAmountOwed} </label>
+        </div>
       </div>
     );
   };

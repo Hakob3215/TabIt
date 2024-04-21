@@ -32,7 +32,7 @@ const user_list = [
     },
     {
         username:"Saachi",
-        amountOwed: 20000.44
+        amountOwed: 20.44
     }
 ];
 
