@@ -9,7 +9,7 @@ const PersonList = ({ names, totals }) => {
             <div className="person-details">
               <label className="person-name">{name}</label>
               <label className="person-total">${totals[index]}</label>
-              <button className="request-button">request</button>
+              <button className="request-button">Request</button>
             </div>
           </div>
         ))}
