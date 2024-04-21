@@ -5,7 +5,7 @@ import './styles/GuestNavbar.css';
 const GuestNavbar = () => {
     return (
         <div className="Navbar">
-            <h1>Tab It!</h1>
+            <h1>TabIt!</h1>
             <nav>
                 <ul>
                     <li><Link to="/">Home</Link></li>
