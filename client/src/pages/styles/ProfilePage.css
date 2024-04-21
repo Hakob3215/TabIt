@@ -1,71 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-
-
-
-
-
-/* ProfilePage.css */
-
-/* Adjust card width on small devices */
-.card {
-    width: 100%; /* Adjust the width as needed */
-    max-width: 400px; /* Set a maximum width to maintain readability */
-    margin: auto; /* Center the card horizontally */
-}
-
-/* Center profile picture */
-.card-body .d-flex {
+.profilePage {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-/* Adjust profile picture size */
-.card-body img {
-    width: 120px;
-    height: 120px;
-}
-
-/* Center profile name and username */
-.card-body .mt-3 {
-    text-align: center;
-    align-items: center;
-}
-
-/* Adjust supported payments list */
-.list-group-item {
-    padding: 10px;
-    list-style-type: none;
-}
-
-/* Adjust icon size */
-.icon-inline {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-/* Adjust spacing */
-.mb-3 {
-    margin-bottom: 15px;
-}
-
-/* Adjust font size */
-.text-secondary {
-    font-size: 14px;
-}
-
-.font-size-sm {
-    font-size: 12px;
-}
-
-/* Add padding to the main body */
-.main-body {
-    padding: 50px;
-}
-
-/* Center the container horizontally */
-.container {
-    margin: auto;
+    margin-top: 50px;
 }
