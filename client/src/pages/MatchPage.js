@@ -169,16 +169,22 @@ const MatchPage = () => {
         if (selectedUser) {
             const newData = [...data];
             const column2Data = newData[index].column2 || []; // Get existing data or initialize empty array
+            const column5Data = newData[index].column5 || []; //get Existing data or init empty array
             let updatedColumn2Data;
+            let updatedColumn5Data;
             if (column2Data.includes(selectedUser.pfp)) {
                 // If selectedUser exists, filter it out
                 updatedColumn2Data = column2Data.filter(image => image !== selectedUser.pfp);
+                updatedColumn5Data = column5Data.filter(user => user.username !== selectedUser.username)
+                
             } else {
                 // If selectedUser does not exist, add it
                 updatedColumn2Data = [...column2Data, selectedUser.pfp];
+                updatedColumn5Data = [...column5Data, selectedUser];
             }
     
             newData[index].column2 = updatedColumn2Data; // Assign the updated array to column2
+            newData[index].column5 = updatedColumn5Data;
 
 
             const column3Value = parseFloat(newData[index].column3);
