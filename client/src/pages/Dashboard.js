@@ -61,10 +61,12 @@ const Dashboard = () => {
             <button className="profile-button" onClick={() => handleNavigate('/profile-page')}>
                 <img src={profileIcon} alt="Profile Icon" />
             </button>
+            <h1 className='dashTitle'>Existing Receipts</h1>
+            <button className="add-receipt-button" onClick={() => handleNavigate('/scan-image')}>+</button>
             <div className="receipts">
                 {receipts.map((receipt, index) => {return <Receipt key={index} receipt={receipt} />})}
             </div>
-            <button className="add-receipt-button" onClick={() => handleNavigate('/scan-image')}>+</button>
+          
         </div>
     );
 };

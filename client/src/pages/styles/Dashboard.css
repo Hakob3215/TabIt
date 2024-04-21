@@ -6,21 +6,25 @@
 }
 
 .profile-button {
+   
     width: auto;
     height: auto;
     max-width: 50px;
     max-height: 50px;
     object-fit: contain;
+    margin-left: 70px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #7fd496;
     border-radius: 50%;
+    
 }
 
 .profile-button img {
-    width: 200%;
-    height: 200%;
+    width: 150%;
+    height: 150%;
 }
 
 .receipts {
@@ -34,20 +38,25 @@
     border: 1px solid #000;
     border-radius: 10px;
     padding: 10px 50px;
+    width: 60%;
 }
 
 .highlight {
     font-size: 1.5em;
     color: red; /* Or any other color to highlight the latest receipt */
 }
-
+.dashTitle {
+    align-self: center;
+}
 .add-receipt-button {
-    width: 3vw;
-    height: 3vw;
-    align-self: flex-end;
+    margin: 20px;
+    width: 50px;
+    height: 50px;
+    align-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #7fd496;
     border-radius: 100%;
+
 }
