@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import './styles/MatchPage.css';
 import { Link } from 'react-router-dom';
 
 const MatchPage = () => {
     const [showAddUserWindow, setShowAddUserWindow] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [userImages, setUserImages] = useState([
-        "https://bootdey.com/img/Content/avatar/avatar6.png",
-        "profile2.jpg",
-        "https://bootdey.com/img/Content/avatar/avatar5.png", 
-        "https://bootdey.com/img/Content/avatar/avatar7.png",
-        "profile2.jpg",
-        "profile3.jpg",   
-        // Add more profile picture URLs here
-    ]);
+
+    // const [userImages, setUserImages] = useState([
+    //     "https://bootdey.com/img/Content/avatar/avatar6.png",
+    //     "profile2.jpg",
+    //     "https://bootdey.com/img/Content/avatar/avatar5.png", 
+    //     "https://bootdey.com/img/Content/avatar/avatar7.png",
+    //     "profile2.jpg",
+    //     "profile3.jpg",   
+    //     // Add more profile picture URLs here
+    // ]);
 
     const [data, setData] = useState([  // Replace with your actual data fetching logic
         { _id: 1, column1: "Value 1", column2: "", column3: "32.4", column4: "Value 4" },
@@ -21,18 +23,105 @@ const MatchPage = () => {
         // Add more data objects here
     ]);
 
+    const [currentUsers, setCurrentUsers] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+    const [userFriends, setUserFriends] = useState([]);
+
+    useEffect(() => {
+        // fetch all users
+        fetch(process.env.REACT_APP_SERVER_URL + '/api/user/all', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            switch(response.status) {
+                case 200:
+                    response.json().then((data) => {
+                        // set user data
+                        setAllUsers(data);
+                    });
+                    break;
+                default:
+                    // error
+                    console.log('An error occurred');
+            }
+        }).catch((error) => {
+        });
+    });
+
+    useEffect(() => {
+        // fetch all user's friends
+        const user = localStorage.getItem('user');
+        fetch(process.env.REACT_APP_SERVER_URL + '/api/user/friends', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: user,
+            }),
+        }).then((response) => {
+            switch(response.status) {
+                case 200:
+                    response.json().then((data) => {
+                        // set friends
+                        setUserFriends(data);
+                    });
+                    break;
+                default:
+                    // error
+                    console.log('An error occurred');
+            }
+            }).catch((error) => {
+                console.log(error);
+        });
+    });
+
+    useEffect(() => {
+        // add user to current users
+        const user = localStorage.getItem('user');
+        // fetch current user data
+        fetch(process.env.REACT_APP_SERVER_URL + '/api/user/profile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: user,
+            }),
+        }).then((response) => {
+            switch(response.status) {
+                case 200:
+                    response.json().then((data) => {
+                        // insert user into current users
+                        setCurrentUsers([...currentUsers, data.username]);
+                    });
+                    break;
+                default:
+                    // error
+                    console.log('An error occurred');
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    },[]);
+
+
     const handleAddUser = () => {
         setShowAddUserWindow(true);
     };
 
-    const handleAddUserSubmit = (newUserImage) => {
-        setUserImages([...userImages, newUserImage]);
+    const handleAddUserSubmit = (newUsers) => {
+        // concatentate new users to current users
+        setCurrentUsers([...currentUsers, ...newUsers]);
         setShowAddUserWindow(false);
     };
 
     const handleClick = (index) => {
-        setSelectedImage(userImages[index]);
+        setSelectedImage(currentUsers[index]);
     };
+
 
     const handleRowClick = (index) => {
         if (selectedImage) {
@@ -83,10 +172,10 @@ const MatchPage = () => {
                     <button className="add-user-button" onClick={handleAddUser}>+</button>
                 </div>
                 <div className="profile-scroll-container">
-                    {userImages.map((imageUrl, index) => (
+                    {currentUsers && currentUsers.map((user, index) => (
                         <img
                             key={index}
-                            src={imageUrl}
+                            src={user.pfp}
                             alt={`Profile ${index + 1}`}
                             className="profile-image"
                             onClick={() => handleClick(index)}
@@ -94,7 +183,7 @@ const MatchPage = () => {
                     ))}
                 </div>
                 {showAddUserWindow && <AddUserWindow onSubmit={handleAddUserSubmit} />}
-                {showAddUserWindow && <AddUserWindow onSubmit={handleAddUserSubmit} onClose={() => setShowAddUserWindow(false)} />}
+                {showAddUserWindow && <AddUserWindow onSubmit={handleAddUserSubmit} onClose={() => setShowAddUserWindow(false)} allUsers={allUsers} userFriends={userFriends}/>}
             </div>
             {showAddUserWindow ? null : (
             <div className="data-table">
@@ -108,13 +197,13 @@ const MatchPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item, index) => (
+                        {data && data.map((item, index) => (
                             <tr key={item._id} onClick={() => handleRowClick(index)}>
                                 <td>{item.column1}</td>
                                 <td>
                                     {Array.isArray(item.column2) && (
                                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            {item.column2.map((url, index) => isValidUrl(url) && (
+                                            {item && item.column2.map((url, index) => isValidUrl(url) && (
                                                 <img 
                                                     key={index}
                                                     src={url} 
@@ -149,39 +238,11 @@ const MatchPage = () => {
     );
 };
 
-const AddUserWindow = ({ onSubmit, onClose }) => {
+const AddUserWindow = ({ onSubmit, onClose, allUsers, userFriends }) => {
     const [newUserImage, setNewUserImage] = useState("");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const [allUsers] = useState([
-        'Alice',
-        'Bob',
-        'Charlie',
-        'David',
-        'Eve',
-        'Frank',
-        'Grace',
-        'Heidi',
-        'Ivan',
-        'Judy',
-        'aa',
-        'adadad',
-        'adadad',
-        'adadadad',
-    ]);
-
-    const [userFriends] = useState([
-        'Charlie',
-        'David',
-        'Eve',
-        'Judy',
-        'aa',
-        'adadad',
-        'adadad',
-        'adadadad',
-    ]);
-
 
     const handleInputChange = (event) => {
         setNewUserImage(event.target.value);
@@ -194,17 +255,21 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
         if (!value) {
             setSearchResults([]); // Clear results when input is empty
         } else {
-            const results = allUsers.filter(user => user.toLowerCase().includes(value.toLowerCase()));
+            const results = allUsers.filter(user => user.username.toLowerCase().includes(value.toLowerCase()));
             setSearchResults(results);
         }
     };  
 
-    const handleAddUser = (username) => {
-        setSelectedUsers(prevUsers => [...prevUsers, username]);
+    const handleAddUser = (user) => {
+        // add user to selected users UNLESS they are already in the list
+        if (!selectedUsers.includes(user)) {
+            setSelectedUsers(prevUsers => [...prevUsers, user]);
+        }
     };
 
-    const handleRemoveUser = (username) => {
-        setSelectedUsers(prevUsers => prevUsers.filter(user => user !== username));
+    const handleRemoveUser = (user) => {
+        // remove user from selected users
+        setSelectedUsers(prevUsers => prevUsers.filter(prevUser => prevUser != user));
     };
 
     const handleSubmit = () => {
@@ -225,9 +290,9 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
             <div className="selected-users">
                 <h3>Selected Users</h3>
                 <ul>
-                    {selectedUsers.map((user, index) => (
+                    {selectedUsers && selectedUsers.map((user, index) => (
                         <li key={index}>
-                            {user}
+                            {user.username}
                             <button onClick={() => handleRemoveUser(user)}>Remove</button>
                         </li>
                     ))}
@@ -241,9 +306,9 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
                     onChange={handleSearchInputChange}
                 />
                 <ul>
-                    {searchResults.map((user, index) => (
+                    {searchResults && searchResults.map((user, index) => (
                         <li key={index}>
-                            {user}
+                            {user.username}
                             <button onClick={() => handleAddUser(user)}>Add</button>
                         </li>
                     ))}
@@ -252,9 +317,9 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
             <div className="user-friends">
                 <h3>Friends:</h3>
                 <ul>
-                    {userFriends.map((friend, index) => (
+                    {userFriends && userFriends.map((friend, index) => (
                         <li key={index} className="friend-item">
-                            <span>{friend}</span>
+                            <span>{friend.username}</span>
                             <button onClick={() => handleAddToSelectedUsers(friend)}>Add</button>
                         </li>
                     ))}

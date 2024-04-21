@@ -79,6 +79,30 @@ app.post('/api/user/update-venmo', (req, res) => {
     });
 });
 
+app.get('/api/user/all', (req, res) => {
+    UserModel.find({}).then((users) => {
+        res.status(200).send(users);
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
+app.post('/api/user/friends', (req, res) => {
+    const { username } = req.body;
+    UserModel.findOne({ username: username }).then((user) => {
+        UserModel.find({ username: { $in: user.friends } }).then((friends) => {
+            res.status(200).send(friends);
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(null);
+        });
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
 app.post('/api/receipts/new-receipt', (req, res) => {
     const { receipt } = req.body;
     const newReceipt = new ReceiptModel(receipt);
