@@ -178,6 +178,34 @@ app.post('/api/receipts/retrieve-receipt', (req, res) => {
     });
 });
 
+app.post('/api/user/addFriend', (req, res) => {
+    const { username, friend } = req.body;
+
+    // Fetch the user and the friend from the database
+    UserModel.findOne({ username: username }).then((user) => {
+        if (!user.friends.includes(friend)) {
+            user.friends.push(friend);
+            UserModel.findOneAndUpdate({ username: friend }, { $push: { friends: username } }).then(() => {
+                UserModel.findOneAndUpdate({ username: username }, { friends: user.friends }).then(() => {
+                    res.status(200).send(null);
+                }).catch((error) => {
+                    console.log(error);
+                    res.status(500).send(null);
+                });
+            }).catch((error) => {
+                console.log(error);
+                res.status(500).send(null);
+            });
+        } else {
+            res.status(200).send(null);
+        }
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
+
 
 
 
