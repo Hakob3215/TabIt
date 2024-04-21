@@ -49,7 +49,7 @@ const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" placeholder="Password" id="password" name='password'/>
             <p>{error}</p>
-            <button type="submit">Log In</button>
+            <button className='loginButton' type="submit">Log In</button>
             </form>
 
         </div>

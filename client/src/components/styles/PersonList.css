@@ -29,6 +29,13 @@
   
 
 .request-button {
+    margin-top: 50px;
     width: 100px;
-    text-align: right;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
 }
