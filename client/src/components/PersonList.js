@@ -1,14 +1,14 @@
 import React from 'react';
 import './styles/PersonList.css';
 
-const PersonList = ({ names, totals }) => {
+const PersonList = ({users}) => {
     return (
       <div className="person-list">
-        {names.map((name, index) => (
+        {users.map((user, index) => (
           <div className="person" key={index}>
             <div className="person-details">
-              <label className="person-name">{name}</label>
-              <label className="person-total">${totals[index]}</label>
+              <label className="person-name">{user.username}</label>
+              <label className="person-total">${user.amountOwed}</label>
               <button className="request-button">Request</button>
             </div>
           </div>

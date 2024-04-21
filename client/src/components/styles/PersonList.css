@@ -2,27 +2,53 @@
     display:flexbox;
     grid-template-columns: 1fr 1fr auto;
     align-items: center;
-    width: 100%;
+    width: 80%;
     /* can max-width: 414px; */
     position: relative;
-    margin: auto;
+    border: 1px solid #000;
+    background-color:#FAF9F6;
+    margin:auto;
+    color: #1A120B;
+    border-radius: 10px;
+    box-shadow: 0px 8px 15px rgba(253, 250, 250, 0.1); 
+
 }
 
 .person-details {
     display: flex;
     align-items: center; /* Optional: if you want to align items vertically in the center */
     justify-content: space-between;
-    width: 100%
+    width: 100%;
+   
 }
-.person-name, .person-total {
+
+.person-name, .person-total{
+    font-size: 20px;
+    margin-top: 55px;
+    max-width: 20%;  
+    overflow: hidden;  
+    white-space: nowrap; 
+    overflow: auto;  
+}
+.person-name{
+   
     flex: 1 0 auto; /* This allows the elements to grow and shrink as needed */
     text-align: left;
-    padding: 0 50px;
-    padding-top:40px;
+    padding: 0 20px;
+ 
 }
+
+
+.person-total {
+    flex: 1 0 auto; /* This allows the elements to grow and shrink as needed */
+    text-align: left;
+    padding: 0 10px;
+    font-weight: bold;
+}
+
   
   .person {
-    border-bottom: 1px solid #000; /* Optional: if you want a line after each person */
+    /* border-bottom: 1px solid #000; */
     padding: 10px 0; /* Optional: if you want some space around each person */
   }
   
@@ -37,5 +63,11 @@
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
+    margin-right: 10px;
     cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); 
+}
+
+body {
+    font-family: Helvetica;
 }

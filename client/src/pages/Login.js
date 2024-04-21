@@ -45,7 +45,7 @@ const Login = () => {
             <form className = 'loginForm' onSubmit={handleSubmit}>
             <h3>Login Here</h3>
             <label htmlFor="username">Email or Username</label>
-            <input type="text" placeholder="Email or Username" id="username" name='username' />
+            <input type="text" placeholder="Email or Username" id="username" name='username' className='user'/>
             <label htmlFor="password">Password</label>
             <input type="password" placeholder="Password" id="password" name='password'/>
             <p>{error}</p>

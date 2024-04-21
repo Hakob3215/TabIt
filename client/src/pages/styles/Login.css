@@ -25,6 +25,7 @@ h3 {
     border: 2px solid rgba(255,255,255,0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
+    
 }
 .title {
     font-size: 30px;
@@ -33,17 +34,23 @@ h3 {
     margin-top: 0;
 }
 
+.user{
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+}
+
 .fields {
-    display: flex;
+    /* display: flex; */
     margin-top: 30px;
     font-size: 16px;
     font-weight: 500;
+    margin-bottom: 20px;
 }
 
 .loginForm input{
     display: block;
     height: 50px;
-    width: 100%;
+    width: 95%;
     background-color: rgba(255,255,255,0.07);
     border-radius: 3px;
     padding: 0 10px;
@@ -58,8 +65,9 @@ h3 {
 
 .loginButton {
 margin-top: 50px;
+margin-left: 10px;
 width: 95%;
-background-color: #ffffff;
+background-color: #efe9e9;
 color: #080710;
 padding: 15px;
 font-size: 18px;
@@ -69,5 +77,5 @@ cursor: pointer;
 }
 
 body {
-background-color:blanchedalmond;
+    background: radial-gradient(circle, #efe9e9, #ded9d9);
 }

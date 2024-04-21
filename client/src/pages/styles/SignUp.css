@@ -3,9 +3,17 @@
 
 .page {
     display: flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
     margin-top: 60px;
+    background: radial-gradient(circle, #efe9e9, #ded9d9);
+}
+
+.page .title {
+    color: black;
+    transform: translateY(120px);
+    font-size: 34px;
 }
 .signUpForm
 {
@@ -15,17 +23,13 @@
     justify-content: center; 
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     border: 2px solid rgb(42, 39, 39);
     border-radius: 25px;
+    padding-top: 20px;
 }
-.title
-{
-    color:rgb(18, 46, 46);
-    padding:0;
-    margin:0;
-    font-size: 40px;
-}
+
+
 
 .inputs {
     display:inline-flex;
@@ -87,8 +91,4 @@
     font-size: 16px;
     cursor: pointer;
 }
-body 
-{
-    font-family: 'Mukta';
-    background-color:lightsteelblue;
-}
+
