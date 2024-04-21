@@ -174,7 +174,7 @@ const MatchPage = () => {
             const column5Data = newData[index].column5 || []; //get Existing data or init empty array
             let updatedColumn2Data;
             let updatedColumn5Data;
-            if (column5Data.sum(user => user.username === selectedUser.username)) {
+            if (column5Data.some(user => user.username === selectedUser.username)) {
                 // If selectedUser exists, filter it out
                 updatedColumn2Data = column2Data.filter(image => image !== selectedUser.pfp);
                 updatedColumn5Data = column5Data.filter(user => user.username !== selectedUser.username)
