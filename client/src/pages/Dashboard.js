@@ -5,11 +5,17 @@ import profileIcon from '../components/profileIcon.png';
 import './styles/Dashboard.css'; // Import your CSS file
 
 const Receipt = ({ receipt }) => {
+    let receiptSum = receipt.total;
+    if (receipt.tax !== null) {
+        receiptSum += receipt.tax;
+    }
+    if (receipt.tip !== null) {
+        receiptSum += receipt.tip;
+    }
     return (
         <div className="receipt">
             <p>{receipt.title}</p>
-            <p>{receipt.date}</p>
-            <p>{receipt.total}</p>
+            <p>{receiptSum}</p>
         </div>
     );
 }
@@ -27,21 +33,26 @@ const Dashboard = () => {
     });
 
     useEffect(() => {
-        setReceipts([
-            {
-                title: 'Groceries',
-                date: '10/10/2021',
-                total: '$50.00'
+        // get receipts from server
+        fetch(process.env.REACT_APP_SERVER_URL + '/api/receipts/get-receipts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            {
-                title: 'Gas',
-                date: '10/11/2021',
-                total: '$30.00'
+            body: JSON.stringify({
+                username: localStorage.getItem('user'),
+            }),
+        }).then((response) => {
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    setReceipts(data.receipts);
+                });
             }
-        ]);
+        });
     },[setReceipts]);
 
     function handleNavigate(dest) {
+        localStorage.setItem('newReceipt', 'true');
         navigate(dest);
     }
 

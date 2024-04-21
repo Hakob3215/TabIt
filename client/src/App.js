@@ -8,6 +8,7 @@ import ScanImage from './pages/ScanImage';
 import VerifyItems from './pages/VerifyItems';
 import GuestNavbar from './components/GuestNavbar';
 import ProfilePage from './pages/ProfilePage';
+import MatchPage from './pages/MatchPage';
 import Final from './pages/Final';
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/scan-image" element={<><ScanImage /></>} />
         <Route path="/verify-items" element={<><VerifyItems /></>} />
         <Route path="/profile-page" element={<><ProfilePage /></>} />
+        <Route path="/match-page" element={<><MatchPage /></>} />
         <Route path = "/final" element={<><Final/></>} />
       </Routes>
     </Router>

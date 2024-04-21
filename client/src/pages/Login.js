@@ -43,7 +43,7 @@ const Login = () => {
     return (
         <div className='page'>
             <form className = 'loginForm' onSubmit={handleSubmit}>
-            <h3>Login Here</h3>
+            <h3 className='loginHeader'>Login Here</h3>
             <label htmlFor="username">Email or Username</label>
             <input type="text" placeholder="Email or Username" id="username" name='username' className='user'/>
             <label htmlFor="password">Password</label>

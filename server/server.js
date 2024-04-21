@@ -9,6 +9,7 @@ const port = 5000;
 
 const db = require('./utils/database.js');
 const UserModel = db.User;
+const ReceiptModel = db.Receipt;
 
 
 
@@ -58,8 +59,51 @@ app.post('/api/user/login', (req, res) => {
     });
 });
 
+app.post('/api/receipts/new-receipt', (req, res) => {
+    const { receipt } = req.body;
+    const newReceipt = new ReceiptModel(receipt);
+    newReceipt.save().then(() => {
+        // add receipt id to user
+        UserModel.findOne({ username: receipt.owner }).then((user) => {
+            user.receiptIDs.push(newReceipt._id);
+            user.save().then(() => {
+                // send success status
+                res.status(200).send(null);
+            }).catch((error) => {
+                console.log(error);
+            });
+        });
+    }).catch((error) => {
+        console.log(error);
+    });
+});
 
+app.post('/api/receipts/update-receipt', (req, res) => {
+    const { receipt } = req.body;
+    // get the correct id from latest user receipt
+    UserModel.findOne({ username: receipt.owner }).then((user) => {
+        const receiptID = user.receiptIDs[user.receiptIDs.length - 1];
+        ReceiptModel.findByIdAndUpdate(receiptID, receipt).then(() => {
+            res.status(200).send(null);
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(null);
+        });
+    });
+});
 
+app.post('/api/receipts/get-receipts', (req, res) => {
+    const { username } = req.body;
+    UserModel.findOne({ username: username }).then((user) => {
+        const receiptIDs = user.receiptIDs;
+        ReceiptModel.find({ _id: { $in: receiptIDs } }).then((receipts) => {
+            res.status(200).send({ receipts });
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(null);
+        });
+    });
+});
 
 
 

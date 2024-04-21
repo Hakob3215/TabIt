@@ -1,0 +1,53 @@
+body {
+  font-family: Arial, sans-serif;
+}
+.logo {
+  text-align: center;
+  padding: 20px;
+}
+table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+th {
+  background-color: #f2f2f2;
+  color: #4CAF50; /* color of text */
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.confirm-btn {
+  display: block;
+  width: 200px;
+  height: 50px;
+  margin: 20px auto;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.add-row-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: auto;
+    border-radius: 50%;
+    background-color: #526dd1;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
+    border: #526dd1;
+}
+
+
+

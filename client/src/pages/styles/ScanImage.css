@@ -67,3 +67,9 @@
     cursor: pointer;
     align-self: center;
 }
+
+.totalCost {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}

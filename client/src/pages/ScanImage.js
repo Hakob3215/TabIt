@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/ScanImage.css';
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -8,10 +9,23 @@ const genAI = new GoogleGenerativeAI(process.env.REACT_APP_BARD_API_KEY);
 
 const ScanImage = () => {
 
+    const navigate = useNavigate();
     const [requestMade, setRequestMade] = useState(false);
     const [response, setResponse] = useState('');
     const [receiptInfo, setReceiptInfo] = useState([]);
+    const [tax, setTax] = useState(null);
+    const [tip, setTip] = useState(null);
+    const [title, setTitle] = useState('');
     const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
+
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        const newReceipt = localStorage.getItem('newReceipt');
+            if (!user || newReceipt === null) {
+                // if not signed in, redirect to sign in page
+                navigate('/login');
+            }
+        });
 
     async function handleImage(e) {
         setResponse('');
@@ -65,6 +79,9 @@ const ScanImage = () => {
         setReceiptInfo(newReceiptInfo);
     }
     function handleCostChange(index, e) {
+        while(isNaN(e.target.value))
+            e.target.value = e.target.value.slice(0, -1);
+        
         let newReceiptInfo = [...receiptInfo];
         newReceiptInfo[index][1] = e.target.value;
         setReceiptInfo(newReceiptInfo);
@@ -86,10 +103,101 @@ const ScanImage = () => {
     function addItem() {
         setReceiptInfo([...receiptInfo, ['', '']]);
     }
-        
+    function handleTaxChange(e) {
+        while(isNaN(e.target.value))
+            e.target.value = e.target.value.slice(0, -1);
+        const tax = e.target.value;
+        if (tax === 0)
+            setTax(null);
+        else
+        setTax(tax);
+    }
+    function handleTipChange(e) {
+        while(isNaN(e.target.value))
+            e.target.value = e.target.value.slice(0, -1);
+        const tip = e.target.value;
+        if (tip === 0)
+            setTip(null);
+        else
+        setTip(tip);
+    }
 
+    async function handleReceiptSubmission() {
+        // convert receipt into receipt object to easily store in database
+        // get user from local storage
+        const user = localStorage.getItem('user');
+        const items = receiptInfo.map(item => {
+            return {
+                itemName: item[0],
+                itemPrice: parseFloat(item[1]),
+                usersPaying: []
+            };
+        });
+        const total = parseFloat(getTotalCost());
+        const taxValue = tax;
+        const tipValue = tip;
+        const receipt = {
+            title: title,
+            owner: user,
+            items: items,
+            users: [],
+            tax: taxValue,
+            tip: tipValue,
+            total: total
+        }
+        // two posibilities:
+        // This is a new receipt and we need to create a new receipt in the database
+        // This is an existing receipt and we need to update the receipt in the database
+        // Check local storage for if this is new
+        const isNewReceipt = localStorage.getItem('newReceipt');
+        if (isNewReceipt){
+            // send a post request to the server to create a new receipt
+            fetch(process.env.REACT_APP_SERVER_URL + '/api/receipts/new-receipt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    receipt,
+                }),
+            }).then((response) => {
+                switch(response.status) {
+                    case 200:
+                        // Success
+                        localStorage.removeItem('newReceipt');
+                        navigate('/dashboard');
+                        break;
+                    default:
+                        console.log('An error occurred');
+                }
+            }).catch((error) => {
+            });
+        } else {
+            // send a post request to the server to update the receipt (latest receipt)
+            fetch(process.env.REACT_APP_SERVER_URL + '/api/receipts/update-receipt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    receipt,
+                }),
+            }).then((response) => {
+                switch(response.status) {
+                    case 200:
+                        // Success
+                        navigate('/dashboard');
+                        break;
+                    default:
+                        console.log('An error occurred');
+                }
+            }).catch((error) => {
+            });
+        }
+        
+        }
     return (
-        <div className='scanner'>
+    <div className='scanner'>
         <h1>Scan Image</h1>
         <input id="pickImage" type="file" accept="image/*" capture="camera" onChange={handleImage}/>
         <label htmlFor="pickImage" className='custom-file-upload'>Pick Image</label>
@@ -114,10 +222,17 @@ const ScanImage = () => {
         {
         receiptInfo.length > 0 &&
         <div className='totalCost'>
-                { !isNaN(getTotalCost()) ? <h3>Total Cost: ${getTotalCost()}</h3> : <h3>{getTotalCost()}</h3> }
+                { !isNaN(getTotalCost()) ? <>
+                <h3>Total Cost: ${getTotalCost()}</h3>
+                <input type="text" className="tipInput" placeholder="Leave Blank for No Tax" onChange={(e) => handleTaxChange(e)}/>
+                <input type="text" className="taxInput" placeholder="Leave Blank for No Tip" onChange={(e) => handleTipChange(e)}/>
+                <input type="text" className="titleInput" placeholder="Enter Receipt Title" onChange={(e) => setTitle(e.target.value)}/>
+                {title && <button className="submitReceipt" onClick={handleReceiptSubmission}>Process Receipt</button>}
+                </> : <h3>{getTotalCost()}</h3> }
         </div>
         }
-        </div>
+
+    </div>
     );
 };
 
