@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    friends: { type: Array, default: [] },
     receiptIDs: { type: Array, default: [] },
     venmoCreds: { type: String, default: null },
     zelleCreds: { type: String, default: null },
@@ -23,7 +24,8 @@ const userSchema = new mongoose.Schema({
 });
 
 const receiptSchema = new mongoose.Schema({
-    receiptID: String,
+    title: String,
+    owner: String,
     items: { type: [{
         itemName: String,
         itemPrice: Number,
@@ -34,12 +36,20 @@ const receiptSchema = new mongoose.Schema({
             username: String,
             amountOwed: Number
         }]
-    }
+    },
+    tax: {type: Number,
+        default: null},
+    tip: {type:Number,
+        default: null},
+    total: {type: Number,
+        default: null}
 });
 
 
 
 // Create a model for users
 const User = mongoose.model('User', userSchema);
+// Create a model for receipts
+const Receipt = mongoose.model('Receipt', receiptSchema);
 
-module.exports = {User};
+module.exports = {User, Receipt};

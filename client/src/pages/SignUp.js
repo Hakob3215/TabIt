@@ -7,6 +7,13 @@ const [error, setError] = useState(null);
 const [passVisible, setPassVisible] = useState(false);
 const [confirmVisible, setConfirmVisible] = useState(false);
 
+const [firstName, setFirstName] = useState('');
+const [lastName, setLastName] = useState('');
+const [email, setEmail] = useState('');
+const [username, setUsername] = useState('');
+const [password, setPassword] = useState('');
+const [confirmPassword, setConfirmPassword] = useState('');
+
 function togglePasswordVisibility() {
     setPassVisible(!passVisible);
 }
@@ -16,12 +23,6 @@ function toggleConfirmVisibility() {
 const navigate = useNavigate();
 function handleSubmit(e) {
     e.preventDefault();
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;
-    const email = e.target.email.value;
-    const username = e.target.username.value;
-    const password = e.target.password.value;
-    const confirmPassword = e.target.confirmPassword.value;
     if (password !== confirmPassword) {
         setError('Passwords do not match');
         return;
@@ -71,23 +72,23 @@ function handleSubmit(e) {
            <h1 className='title'> Sign Up </h1>
             <div className='inputs'>
                 <label htmlFor="firstName"> First Name: </label>
-                <input type="text" name="firstName" className='field'/>
+                <input type="text" name="firstName" className='field' onChange={e => setFirstName(e.target.value)}/>
 
                 <label htmlFor="lastName"> Last Name: </label>
-                <input type="text" name="lastName" className='field'/>
+                <input type="text" name="lastName" className='field' onChange={e => setLastName(e.target.value)}/>
 
                 <label htmlFor="email"> Email: </label>
-                <input type="email" name="email" className='field'/>
+                <input type="email" name="email" className='field' onChange={e => setEmail(e.target.value)}/>
 
                 <label htmlFor="username"> Username: </label>
-                <input type="text" name="username" className='field'/>
+                <input type="text" name="username" className='field' onChange={e => setUsername(e.target.value)}/>
 
                 <label htmlFor="password"> Password: </label> 
-                <input type={passVisible ? "text":"password"} name="password" className='field'/>
+                <input type={passVisible ? "text":"password"} name="password" className='field' onChange={e => setPassword(e.target.value)}/>
                 <button type="button" className = "visibility" onClick={togglePasswordVisibility}></button>
 
                 <label htmlFor="confirmPassword"> Confirm Password: </label> 
-                <input type={confirmVisible ? "text":"password"} name="password" className='field'/>
+                <input type={confirmVisible ? "text":"password"} name="password" className='field' onChange={e => setConfirmPassword(e.target.value)}/>
                 <button type="button" className = "conVisibility" onClick={toggleConfirmVisibility}></button>
 
             </div>
