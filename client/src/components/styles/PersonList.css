@@ -54,7 +54,7 @@
   
   
 
-.request-button {
+.request-button, .hidden-button {
     margin-top: 50px;
     width: 100px;
     background-color: #ffffff;
@@ -71,6 +71,9 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.hidden-button {
+    visibility:hidden
+} 
 .total {
 
     flex: 1 0 auto; /* This allows the elements to grow and shrink as needed */

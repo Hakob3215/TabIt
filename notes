@@ -1,4 +1,4 @@
-Venmo DeepLink Syntax: https://venmo.com/<USER_NAME_1>?txn=<charge|pay>&note=<NOTE>&amount=<AMOUNT>
+Venmo DeepLink Syntax: https://venmo.com/<USER_NAME_1>?txn=<charge>&note=<NOTE>&amount=<AMOUNT>
 
 Background temp: #66809a
 zelle: zelle://
