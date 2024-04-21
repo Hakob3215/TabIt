@@ -153,6 +153,19 @@ app.post('/api/receipts/get-receipts', (req, res) => {
     });
 });
 
+app.post('/api/receipts/retrieve-receipt', (req, res) => {
+    let { receiptID } = req.body;
+    // remove quotes from receiptID
+    receiptID = receiptID.substring(1, receiptID.length - 1);
+
+    ReceiptModel.findOne({ _id: receiptID }).then((receipt) => {
+        res.status(200).send(receipt);
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
 
 
 
