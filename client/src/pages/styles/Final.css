@@ -1,4 +1,32 @@
-.title {
-    margin-top: 50px;
-    
+.fPage .title {
+    margin-bottom: -20px;
+    color: #fcfcf7;
+    font-family: Serif;
+    margin-left: 120px;
+    padding-top: 20px;
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0; /* Add space above and below the buttons */
+}
+
+.back-button, .done-button {
+    width: 100px;
+    height: 50px;
+    text-align: center;
+}
+.back-button {
+    margin-left: 20px;
+}
+.done-button{
+    background-color:#4CAF50;
+    margin-right: 20px;
+}
+
+.fPage {
+    font-family: 'Times New Roman';
+    background: radial-gradient(circle, #0d0d0d, #5a5959);
 }

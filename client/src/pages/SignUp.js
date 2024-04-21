@@ -68,8 +68,8 @@ function handleSubmit(e) {
 
     return (
     <div className='page'>
+        <h1 className='title'> Sign Up </h1>
         <form className="signUpForm" onSubmit={handleSubmit}>
-           <h1 className='title'> Sign Up </h1>
             <div className='inputs'>
                 <label htmlFor="firstName"> First Name: </label>
                 <input type="text" name="firstName" className='field' onChange={e => setFirstName(e.target.value)}/>

@@ -1,20 +1,57 @@
 import React from 'react';
 import './styles/Final.css';
 import PersonList from '../components/PersonList';
+import { Link } from "react-router-dom";
 
 const Final = () => {
 
- const names = ['Ryan', 'Hakob', 'Vivek', 'George', 'Preeti', 'Jaina', 'Saachi'];
- const prices = [20, 10, 30, 900, 190.29, 93, 500];
+const user_list = [
+    {
+        username: "Hakob",
+        amountOwed: 50.01
+    },
+    {
+        username: "Ryan",
+        amountOwed: 80.01
+    },
+    {
+        username: "Vivek",
+        amountOwed: 90.01
+    },
+    {
+        username:"Preeti",
+        amountOwed: 20.01
+    },
+    {
+        username:"George",
+        amountOwed: 40.01
+    },
+    {
+        username:"Jaina",
+        amountOwed: 50.92
+    },
+    {
+        username:"Saachi",
+        amountOwed: 20000.44
+    }
+];
 
   
     return(
     
-    <div>
-        <h1 className = 'title'>Final Totals</h1>
-        <div className='people'>
-            <PersonList names = {names} totals = {prices} />
-        </div>
+    <div className='fPage'>
+            <h1 className = 'title'>Final Totals</h1>
+            <div className='people'>
+                <PersonList users={user_list} />
+            </div>
+            <div>
+                <div className='buttons'>
+                    <Link to="/verify-items">
+                        <button className='back-button'>Back</button>
+                    </Link>
+                    <button className='done-button'>Done</button>
+                </div>
+            </div>
     </div>
      
     )
