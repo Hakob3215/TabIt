@@ -153,12 +153,21 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
         'Heidi',
         'Ivan',
         'Judy',
+        'aa',
+        'adadad',
+        'adadad',
+        'adadadad',
     ]);
 
     const [userFriends] = useState([
         'Charlie',
         'David',
         'Eve',
+        'Judy',
+        'aa',
+        'adadad',
+        'adadad',
+        'adadadad',
     ]);
 
 
@@ -168,10 +177,15 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
 
     const handleSearchInputChange = (event) => {
         const value = event.target.value;
-        setSearchInput(value);
-        const results = allUsers.filter(user => user.includes(value));
-        setSearchResults(results);
-    };
+        setSearchInput(value); // Always update the search input state
+    
+        if (!value) {
+            setSearchResults([]); // Clear results when input is empty
+        } else {
+            const results = allUsers.filter(user => user.toLowerCase().includes(value.toLowerCase()));
+            setSearchResults(results);
+        }
+    };  
 
     const handleAddUser = (username) => {
         setSelectedUsers(prevUsers => [...prevUsers, username]);
@@ -185,6 +199,10 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
         onSubmit(selectedUsers);
     };
 
+    const handleAddToSelectedUsers = (friend) => {
+        handleAddUser(friend);
+    };
+
     return (
         <div className="add-user-window">
             <div className="top-overall">
@@ -193,7 +211,7 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
             </div>
                 
             <div className="selected-users">
-                <h3>Selected Users:</h3>
+                <h3>Selected Users</h3>
                 <ul>
                     {selectedUsers.map((user, index) => (
                         <li key={index}>
@@ -220,10 +238,13 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
                 </ul>
             </div>
             <div className="user-friends">
-                <h3>User's Friends:</h3>
+                <h3>Friends:</h3>
                 <ul>
                     {userFriends.map((friend, index) => (
-                        <li key={index}>{friend}</li>
+                        <li key={index} className="friend-item">
+                            <span>{friend}</span>
+                            <button onClick={() => handleAddToSelectedUsers(friend)}>Add</button>
+                        </li>
                     ))}
                 </ul>
             </div>
