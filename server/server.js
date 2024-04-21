@@ -136,6 +136,18 @@ app.post('/api/receipts/update-receipt', (req, res) => {
     });
 });
 
+app.post('/api/receipts/add-price-data', (req, res) => {
+    let { receiptID, items, users } = req.body;
+    // remove quotes from receiptID
+    receiptID = receiptID.substring(1, receiptID.length - 1);
+    ReceiptModel.findByIdAndUpdate(receiptID, { items, users }).then(() => {
+        res.status(200).send(receiptID);
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
 app.post('/api/receipts/get-receipts', (req, res) => {
     const { username } = req.body;
     UserModel.findOne({ username: username }).then((user) => {
