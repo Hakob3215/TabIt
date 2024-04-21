@@ -164,6 +164,9 @@ const ScanImage = () => {
                 switch(response.status) {
                     case 200:
                         // Success
+                        response.text().then((receiptID) => {
+                            localStorage.setItem('receiptID', receiptID);
+                        });
                         localStorage.removeItem('newReceipt');
                         navigate('/match-page');
                         break;
@@ -186,6 +189,9 @@ const ScanImage = () => {
                 switch(response.status) {
                     case 200:
                         // Success
+                        response.text().then((receiptID) => {
+                            localStorage.setItem('receiptID', receiptID);
+                        });
                         navigate('/match-page');
                         break;
                     default:

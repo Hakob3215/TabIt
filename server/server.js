@@ -112,7 +112,7 @@ app.post('/api/receipts/new-receipt', (req, res) => {
             user.receiptIDs.push(newReceipt._id);
             user.save().then(() => {
                 // send success status
-                res.status(200).send(null);
+                res.status(200).send(newReceipt._id);
             }).catch((error) => {
                 console.log(error);
             });
@@ -128,7 +128,7 @@ app.post('/api/receipts/update-receipt', (req, res) => {
     UserModel.findOne({ username: receipt.owner }).then((user) => {
         const receiptID = user.receiptIDs[user.receiptIDs.length - 1];
         ReceiptModel.findByIdAndUpdate(receiptID, receipt).then(() => {
-            res.status(200).send(null);
+            res.status(200).send(receiptID);
         }).catch((error) => {
             console.log(error);
             res.status(500).send(null);
