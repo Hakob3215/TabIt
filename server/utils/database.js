@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    pfp: { type: String, default: null },
+    pfp: { type: String, default: "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" },
     friends: { type: Array, default: [] },
     receiptIDs: { type: Array, default: [] },
     venmoCreds: { type: String, default: null },
