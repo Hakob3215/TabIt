@@ -1,0 +1,7 @@
+.person-list {
+    display:inline-flex;
+}
+
+.request-button {
+    width: 100px;
+}

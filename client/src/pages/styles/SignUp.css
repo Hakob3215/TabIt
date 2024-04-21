@@ -6,11 +6,10 @@
     width: 100%;
     justify-content: center;
     margin-top: 60px;
-    
 }
 .signUpForm
 {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255);
     margin: 100px;
     display: flex;
     justify-content: center; 
@@ -29,7 +28,7 @@
 }
 
 .inputs {
-    display:flex;
+    display:inline-flex;
     flex-direction: column;
     justify-content: flex-start;    
     padding: 10px 20px;
@@ -49,12 +48,44 @@
     border-color: rgb(42, 40, 40, 0.8);
  
 }
-button {
+.signButton {
     padding: 10px;
     margin: 20px;
     width: 50%;
     background-color:rgb(18, 46, 46);
     color:rgba(255, 255, 255);
+}
+
+.visibility {
+    background-image: url('../../components/visibility.png');
+    /* background: none; */
+    border: none;
+    position: absolute;
+    top: 69%;
+    /* right: 10px; */
+    width: 2px;
+    height: 10px;
+
+    transform: translateY(-70%);
+    transform: translateX(250px);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.conVisibility {
+    background-image: url('../../components/visibility.png');
+    /* background: none; */
+    border: none;
+    position: absolute;
+    top: 77.5%;
+    /* right: 10px; */
+    width: 2px;
+    height: 10px;
+
+    transform: translateY(-70%);
+    transform: translateX(250px);
+    font-size: 16px;
+    cursor: pointer;
 }
 body 
 {
