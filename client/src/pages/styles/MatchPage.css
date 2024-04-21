@@ -39,14 +39,14 @@
 
 .profile-image:hover {
     background-color: transparent; /* Remove background color on hover */
-    border-color: #4056a1;
+    border-color: #5e5f62;
 }
 
 .add-user-button {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #526dd1;
+    background-color: #52555f;
     color: white;
     font-size: 25px;
     cursor: pointer;
@@ -57,7 +57,7 @@
 }
 
 .add-user-button:hover {
-    background-color: #4056a1; /* Change background color on hover */
+    background-color: #5e5f62; /* Change background color on hover */
 }
 
 .data-table {
@@ -71,6 +71,7 @@
     position: relative;
     margin: auto;
     padding: 10px;
+    background-color: #FAF9F5;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
@@ -89,7 +90,7 @@
 }
 
 .data-table th {
-    background-color: #788be9;
+    background-color: #60626b;
     color: white;
     padding: 12px 15px;
 }
@@ -106,11 +107,11 @@
     background-color: #f3f3f3;
 }
 .data-table tbody tr:nth-child(odd) {
-    background-color: #e9e2e2; /* This is for odd rows */
+    background-color: #FAF9F5; /* This is for odd rows */
 }
 
 .data-table tbody tr:last-of-type {
-    border-bottom: 1px solid #5666cf;
+    border-bottom: 1px solid #858791;
 }
 
 .data-table tbody tr.active-row {
@@ -164,7 +165,7 @@
 }
 .close-button:hover{
     background-color: transparent; /* Remove background color on hover */
-    border-color: #4056a1;
+    border-color: #9096a9;
 }
 .top-overall h3 {
     font-size: 1.2em; /* Adjust the size of the headers */
@@ -314,7 +315,7 @@
 
 /* Add button */
 .search-users button, .user-friends button {
-    background-color: #526dd1;
+    background-color: #9397a8;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -325,7 +326,7 @@
 
 /* Add button hover effect */
 .search-users button:hover, .user-friends button:hover {
-    background-color: #4056a1;
+    background-color: #5c6170;
 }
 
 /* now the friends one */
@@ -361,7 +362,7 @@
     padding-top: 30px;
   }
 .submit-button {
-    background-color: #526dd1;
+    background-color: #5d6170;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -373,5 +374,5 @@
 
 
 .add-user-window .submit-button:hover {
-    background-color: #4056a1; /* Change background color on hover */
+    background-color: #787b88; /* Change background color on hover */
 }
