@@ -24,3 +24,11 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+
+/* Receipt Info */
+
+.receiptItem {
+    display: flex;
+    justify-content: space-between;
+}
