@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import './styles/ScanImage.css';
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-console.log(process.env.REACT_APP_BARD_API_KEY);
 const genAI = new GoogleGenerativeAI(process.env.REACT_APP_BARD_API_KEY);
 
 const ScanImage = () => {
@@ -166,9 +165,9 @@ const ScanImage = () => {
                         // Success
                         response.text().then((receiptID) => {
                             localStorage.setItem('receiptID', receiptID);
+                            navigate('/match-page');
                         });
                         localStorage.removeItem('newReceipt');
-                        navigate('/match-page');
                         break;
                     default:
                         console.log('An error occurred');
@@ -191,8 +190,8 @@ const ScanImage = () => {
                         // Success
                         response.text().then((receiptID) => {
                             localStorage.setItem('receiptID', receiptID);
+                            navigate('/match-page');
                         });
-                        navigate('/match-page');
                         break;
                     default:
                         console.log('An error occurred');
