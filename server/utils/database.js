@@ -35,6 +35,7 @@ const receiptSchema = new mongoose.Schema({
     users: {
         type: [{
             username: String,
+            venmoCreds: String,
             amountOwed: Number
         }]
     },

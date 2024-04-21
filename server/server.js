@@ -69,6 +69,16 @@ app.post('/api/user/profile', (req, res) => {
     });
 });
 
+app.post('/api/user/update-venmo', (req, res) => {
+    const { username, venmoCreds } = req.body;
+    UserModel.findOneAndUpdate({ username: username }, { venmoCreds: venmoCreds }).then(() => {
+        res.status(200).send(null);
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
 app.post('/api/receipts/new-receipt', (req, res) => {
     const { receipt } = req.body;
     const newReceipt = new ReceiptModel(receipt);
