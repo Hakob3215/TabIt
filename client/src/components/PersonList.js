@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/PersonList.css';
 
 const PersonList = ({users}) => {
-  const totalAmountOwed = users.reduce((total, user) => total + user.amountOwed, 0);
+  const totalAmountOwed = users ? users.reduce((total, user) => total + user.amountOwed, 0) : 0;
   const handleRequest = (username, amountOwed) => {
     const encodedUsername = encodeURIComponent(username);
     const encodedAmountOwed = encodeURIComponent(amountOwed);
@@ -12,11 +12,11 @@ const PersonList = ({users}) => {
   };
   return (
       <div className="person-list">
-        {users.map((user, index) => (
+        { users && users.map((user, index) => (
           <div className="person" key={index}>
             <div className="person-details">
               <label className="person-name">{user.username}</label>
-              <label className="person-total">${user.amountOwed}</label>
+              <label className="person-total">${user.amountOwed.toFixed(2)}</label>
               <button className={user.venmoCreds ? "request-button":"hidden-button"} onClick={()=> handleRequest(user.venmoCreds, user.amountOwed)}>
                 Request
                 </button>
@@ -25,7 +25,7 @@ const PersonList = ({users}) => {
         
         ))}
         <div className='total'>
-            <label>Total: ${totalAmountOwed} </label>
+            <label>Total: ${totalAmountOwed.toFixed(2)} </label>
         </div>
       </div>
     );

@@ -136,6 +136,18 @@ app.post('/api/receipts/update-receipt', (req, res) => {
     });
 });
 
+app.post('/api/receipts/add-price-data', (req, res) => {
+    let { receiptID, items, users } = req.body;
+    // remove quotes from receiptID
+    receiptID = receiptID.substring(1, receiptID.length - 1);
+    ReceiptModel.findByIdAndUpdate(receiptID, { items, users }).then(() => {
+        res.status(200).send(receiptID);
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
 app.post('/api/receipts/get-receipts', (req, res) => {
     const { username } = req.body;
     UserModel.findOne({ username: username }).then((user) => {
@@ -156,7 +168,7 @@ app.post('/api/receipts/get-receipts', (req, res) => {
 app.post('/api/receipts/retrieve-receipt', (req, res) => {
     let { receiptID } = req.body;
     // remove quotes from receiptID
-    receiptID = receiptID.substring(1, receiptID.length - 1);
+    receiptID = receiptID.replace(/"/g, '');
 
     ReceiptModel.findOne({ _id: receiptID }).then((receipt) => {
         res.status(200).send(receipt);
@@ -165,6 +177,34 @@ app.post('/api/receipts/retrieve-receipt', (req, res) => {
         res.status(500).send(null);
     });
 });
+
+app.post('/api/user/addFriend', (req, res) => {
+    const { username, friend } = req.body;
+
+    // Fetch the user and the friend from the database
+    UserModel.findOne({ username: username }).then((user) => {
+        if (!user.friends.includes(friend)) {
+            user.friends.push(friend);
+            UserModel.findOneAndUpdate({ username: friend }, { $push: { friends: username } }).then(() => {
+                UserModel.findOneAndUpdate({ username: username }, { friends: user.friends }).then(() => {
+                    res.status(200).send(null);
+                }).catch((error) => {
+                    console.log(error);
+                    res.status(500).send(null);
+                });
+            }).catch((error) => {
+                console.log(error);
+                res.status(500).send(null);
+            });
+        } else {
+            res.status(200).send(null);
+        }
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(null);
+    });
+});
+
 
 
 

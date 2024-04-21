@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './styles/MatchPage.css';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { Link } from 'react-router-dom';
 const MatchPage = () => {
     const [showAddUserWindow, setShowAddUserWindow] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+    const navigate = useNavigate();
 
     // const [userImages, setUserImages] = useState([
     //     "https://bootdey.com/img/Content/avatar/avatar6.png",
@@ -202,7 +204,68 @@ const MatchPage = () => {
         }
     };
     
-    
+    const handleColumnData = () => {
+        // update receipt in database with new data
+        const receipt = localStorage.getItem('receiptID');
+        // for each item in data, return an object{
+        //     itemName: item.column1,
+        //     itemPrice: item.column3,
+        //     usersPaying: item.column5
+        // }
+        const items = data.map(item => {
+            return {
+                itemName: item.column1,
+                itemPrice: item.column3,
+                usersPaying: item.column5
+            };
+        });
+        // get a list of all individual usernames and their total amount owed
+        const users = data.reduce((acc, item) => {
+            if(!Array.isArray(item.column5)) return acc;
+            item.column5.forEach(user => {
+                const existingUser = acc.find(u => u.username === user.username);
+                if (existingUser) {
+                    existingUser.amountOwed += parseFloat(item.column4);
+                } else {
+                    acc.push({
+                        username: user.username,
+                        venmoCreds: user.venmoCreds, // assuming venmoCreds is a property of user
+                        amountOwed: parseFloat(item.column4)
+                    });
+                }
+            });
+            return acc;
+        }, []);
+
+        // send this data to the server to update the receipt
+        fetch(process.env.REACT_APP_SERVER_URL + '/api/receipts/add-price-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    receiptID: receipt,
+                    items,
+                    users,
+                }
+            ),
+        }).then((response) => {
+            switch(response.status) {
+                case 200:
+                    // Success
+                    response.text().then((receiptID) => {
+                        localStorage.setItem('receiptID', receiptID);
+                    });
+                    navigate('/final')
+                    break;
+                default:
+                    console.log('An error occurred');
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
     const isValidUrl = (string) => {
         try {
@@ -271,7 +334,7 @@ const MatchPage = () => {
                 </table>
                 <div>
                 <Link to='/final'> 
-                    <button className='doneButton'>Next</button>
+                    <button className='doneButton' onClick={handleColumnData}>Next</button>
                 </Link>
                 <Link to='/scan-image'>
                     <button className='backButton'> Back </button>
