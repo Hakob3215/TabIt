@@ -42,11 +42,14 @@ const ProfilePage = () => {
         });
     });
     return (
+        
         <div className='profilePage'>
+            <h1 className='profileTitle'> Your Profile </h1>
+            {/* <button className='editButton' img src='../../components/editPen.svg '></button> */}
         {userObj.pfp ? <img src={userObj.pfp} alt='Profile Picture' className='profilePicture'/> : <img src='https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png' alt='Profile Picture' className='profilePicture'/>}
         <h3>{userObj.firstName} {userObj.lastName}</h3>
-        <p>{userObj.email}</p>
-        <p>{userObj.username}</p>
+        <p>Email: {userObj.email}</p>
+        <p>Username: {userObj.username}</p>
         </div>
 
     );
