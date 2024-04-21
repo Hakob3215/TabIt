@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './styles/MatchPage.css';
+import { Link } from 'react-router-dom';
 
 const MatchPage = () => {
     const [showAddUserWindow, setShowAddUserWindow] = useState(false);
@@ -131,8 +132,19 @@ const MatchPage = () => {
                         ))}
                     </tbody>
                 </table>
+                <div>
+                <Link to='/final'> 
+                    <button className='doneButton'>Next</button>
+                </Link>
+                <Link to='/scan-image'>
+                    <button className='backButton'> Back </button>
+                </Link>
+            
             </div>
+            </div>
+          
             )};
+            
         </>
     );
 };
@@ -252,6 +264,7 @@ const AddUserWindow = ({ onSubmit, onClose }) => {
                 <button className="submit-button" onClick={handleSubmit}>Add Selected Users</button>
             </div>
         </div>
+    
     );
 };
 

@@ -205,7 +205,7 @@ const ScanImage = () => {
 
        {receiptInfo.length > 0 && <div className='receiptNaming'>
             Name your Receipt:    
-            <input placeHolder={'Your Name'} className='nameInput' onChange={(e) => setTitle(e.target.value)}/>
+            <input placeholder={'Your Name'} className='nameInput' onChange={(e) => setTitle(e.target.value)}/>
         </div>}
         {receiptInfo.length > 0 &&
         <div className='receiptItems'>
