@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const MatchPage = () => {
     const [showAddUserWindow, setShowAddUserWindow] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     // const [userImages, setUserImages] = useState([
     //     "https://bootdey.com/img/Content/avatar/avatar6.png",
@@ -18,8 +18,8 @@ const MatchPage = () => {
     // ]);
 
     const [data, setData] = useState([  // Replace with your actual data fetching logic
-        { _id: 1, column1: "Value 1", column2: "", column3: "32.4", column4: "Value 4" },
-        { _id: 2, column1: "Another Value", column2: "", column3: "43.1", column4: "Sample 2 Content" },
+        { _id: 1, column1: "Value 1", column2: "", column3: "32.4", column4: "Value 4", column5: []  },
+        { _id: 2, column1: "Another Value", column2: "", column3: "43.1", column4: "Sample 2 Content", column5: []},
         // Add more data objects here
     ]);
 
@@ -76,7 +76,7 @@ const MatchPage = () => {
             }).catch((error) => {
                 console.log(error);
         });
-    });
+    }, []);
 
     useEffect(() => {
         // add user to current users
@@ -94,8 +94,10 @@ const MatchPage = () => {
             switch(response.status) {
                 case 200:
                     response.json().then((data) => {
-                        // insert user into current users
-                        setCurrentUsers([...currentUsers, data.username]);
+                        // insert user into current users if not already there
+                        if (!currentUsers.map(user => user.username).includes(data.username)) {
+                            setCurrentUsers([...currentUsers, data]);
+                        }
                     });
                     break;
                 default:
@@ -105,7 +107,45 @@ const MatchPage = () => {
         }).catch((error) => {
             console.log(error);
         });
-    },[]);
+    },[setCurrentUsers]);
+
+    useEffect(() => {
+        // fetch receipt data
+        const reciept = localStorage.getItem('receiptID');
+        fetch(process.env.REACT_APP_SERVER_URL + '/api/receipts/retrieve-receipt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                receiptID: reciept,
+            }),
+        }).then((response) => {
+            switch(response.status) {
+                case 200:
+                    response.json().then((data) => {
+                        // set data
+                        const items = data.items;
+                        const newData = items.map((item, index) => {
+                            return {
+                                _id: index,
+                                column1: item.itemName,
+                                column2: "",
+                                column3: item.itemPrice,
+                                column4: item.itemPrice,
+                            };
+                        });
+                        setData(newData);
+                    });
+                    break;
+                default:
+                    // error
+                    console.log('An error occurred');
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    }, [setData]);
 
 
     const handleAddUser = () => {
@@ -113,30 +153,38 @@ const MatchPage = () => {
     };
 
     const handleAddUserSubmit = (newUsers) => {
-        // concatentate new users to current users
-        setCurrentUsers([...currentUsers, ...newUsers]);
+        // concatentate new users that are not already in current users
+        const currentUsersIds = currentUsers.map(user => user.username);
+        const usersToAdd = newUsers.filter(user => !currentUsersIds.includes(user.username));
+        setCurrentUsers([...currentUsers, ...usersToAdd]);
         setShowAddUserWindow(false);
     };
 
     const handleClick = (index) => {
-        setSelectedImage(currentUsers[index]);
+        setSelectedUser(currentUsers[index]);
     };
 
 
     const handleRowClick = (index) => {
-        if (selectedImage) {
+        if (selectedUser) {
             const newData = [...data];
             const column2Data = newData[index].column2 || []; // Get existing data or initialize empty array
+            const column5Data = newData[index].column5 || []; //get Existing data or init empty array
             let updatedColumn2Data;
-            if (column2Data.includes(selectedImage)) {
-                // If selectedImage exists, filter it out
-                updatedColumn2Data = column2Data.filter(image => image !== selectedImage);
+            let updatedColumn5Data;
+            if (column2Data.includes(selectedUser.pfp)) {
+                // If selectedUser exists, filter it out
+                updatedColumn2Data = column2Data.filter(image => image !== selectedUser.pfp);
+                updatedColumn5Data = column5Data.filter(user => user.username !== selectedUser.username)
+                
             } else {
-                // If selectedImage does not exist, add it
-                updatedColumn2Data = [...column2Data, selectedImage];
+                // If selectedUser does not exist, add it
+                updatedColumn2Data = [...column2Data, selectedUser.pfp];
+                updatedColumn5Data = [...column5Data, selectedUser];
             }
     
             newData[index].column2 = updatedColumn2Data; // Assign the updated array to column2
+            newData[index].column5 = updatedColumn5Data;
 
 
             const column3Value = parseFloat(newData[index].column3);
@@ -239,14 +287,10 @@ const MatchPage = () => {
 };
 
 const AddUserWindow = ({ onSubmit, onClose, allUsers, userFriends }) => {
-    const [newUserImage, setNewUserImage] = useState("");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
-    const handleInputChange = (event) => {
-        setNewUserImage(event.target.value);
-    };
 
     const handleSearchInputChange = (event) => {
         const value = event.target.value;
@@ -269,7 +313,7 @@ const AddUserWindow = ({ onSubmit, onClose, allUsers, userFriends }) => {
 
     const handleRemoveUser = (user) => {
         // remove user from selected users
-        setSelectedUsers(prevUsers => prevUsers.filter(prevUser => prevUser != user));
+        setSelectedUsers(prevUsers => prevUsers.filter(prevUser => prevUser.username !== user.username));
     };
 
     const handleSubmit = () => {

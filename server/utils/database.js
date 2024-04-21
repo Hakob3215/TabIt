@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    pfp: { type: String, default: null },
     friends: { type: Array, default: [] },
     receiptIDs: { type: Array, default: [] },
     venmoCreds: { type: String, default: null },
@@ -26,7 +27,6 @@ const userSchema = new mongoose.Schema({
 const receiptSchema = new mongoose.Schema({
     title: String,
     owner: String,
-    pfp: { type: String, default: null },
     items: { type: [{
         itemName: String,
         itemPrice: Number,
