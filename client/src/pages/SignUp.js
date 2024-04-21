@@ -84,11 +84,11 @@ function handleSubmit(e) {
 
                 <label htmlFor="password"> Password: </label> 
                 <input type={passVisible ? "text":"password"} name="password" className='field'/>
-                <button type="button" className = "visibility" onClick={togglePasswordVisibility}>👁️</button>
+                <button type="button" className = "visibility" onClick={togglePasswordVisibility}></button>
 
                 <label htmlFor="confirmPassword"> Confirm Password: </label> 
                 <input type={confirmVisible ? "text":"password"} name="password" className='field'/>
-                <button type="button" className = "conVisibility" onClick={toggleConfirmVisibility}>👁️</button>
+                <button type="button" className = "conVisibility" onClick={toggleConfirmVisibility}></button>
 
             </div>
             {error && <p className='error'>{error}</p>}
