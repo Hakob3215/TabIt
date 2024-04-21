@@ -139,7 +139,7 @@ app.post('/api/receipts/update-receipt', (req, res) => {
 app.post('/api/receipts/add-price-data', (req, res) => {
     let { receiptID, items, users } = req.body;
     // remove quotes from receiptID
-    receiptID = receiptID.substring(1, receiptID.length - 1);
+    receiptID = receiptID.replace(/"/g, '');
     ReceiptModel.findByIdAndUpdate(receiptID, { items, users }).then(() => {
         res.status(200).send(receiptID);
     }).catch((error) => {
