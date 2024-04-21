@@ -1,50 +1,47 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import './styles/Final.css';
 import PersonList from '../components/PersonList';
 import { Link } from "react-router-dom";
 
 const Final = () => {
 
-const user_list = [
-    {
-        username: "Hakob",
-        amountOwed: 50.01
-    },
-    {
-        username: "Ryan",
-        venmoCreds: 'ryan-kung-10',
-        amountOwed: 80.01
-    },
-    {
-        username: "Vivek",
-        amountOwed: 90.01
-    },
-    {
-        username:"Preeti",
-        venmoCreds:'Preeti-Karthikeyan',
-        amountOwed: 20.01
-    },
-    {
-        username:"George",
-        amountOwed: 40.01
-    },
-    {
-        username:"Jaina",
-        amountOwed: 50.92
-    },
-    {
-        username:"Saachi",
-        amountOwed: 20.44
-    }
-];
+    const [userList, setUserList] = React.useState([]);
 
+    useEffect(() => {
+        // fetch receipt data from server
+        const receiptID = localStorage.getItem('receiptID');
+        fetch(process.env.REACT_APP_SERVER_URL + '/api/receipts/retrieve-receipt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                receiptID,
+            }),
+        }).then((response) => {
+            switch(response.status) {
+                case 200:
+                    response.json().then((data) => {
+                        // set user data
+                        setUserList(data.users);
+                    });
+                default:
+                    // error
+                    console.log('An error occurred');
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+    
   
     return(
     
     <div className='fPage'>
             <h1 className = 'title'>Final Totals</h1>
             <div className='people'>
-                <PersonList users={user_list} />
+                <PersonList users={userList} />
             </div>
             <div>
                 <div className='buttons'>
